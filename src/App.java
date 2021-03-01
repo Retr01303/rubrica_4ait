@@ -15,7 +15,6 @@ public class App {
     public static BufferedReader tastiera = new BufferedReader(input);
     public static rubrica funzioni = new rubrica();// dichiaro l'oggetto funzioni appartenete alla classe rubrica
     public static char scelta;// variabile per la ricezione della scelte del menu
-
     public static void main(String[] args) throws Exception {
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
@@ -81,7 +80,32 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
 
     private String SceltaAdd = "n";// dichiaro una variabile per la scelta se si vuole aggiungere un altro contatto
                                    // o no
+    
+    private void sort() {
+        for (int i = 0; i < nome.size() - 1; i++) {
+            for (int j = i + 1; j < nome.size(); j++) {
+                if (nome.elementAt(i).compareToIgnoreCase(nome.elementAt(j)) > 0) {
+                    scambiaTutti(i, j);
+                }
+            }
+        }
+    }
+    
+    private void scambiaTutti(int index1, int index2){
+        scambia(index1, index2, nome);
+        scambia(index1, index2, telefono);
+        scambia(index1, index2, email);
+        scambia(index1, index2, gruppi);
+        scambia(index1, index2, researchGroup);
+    }
 
+    
+    private void scambia(int index1, int index2, Vector<String> vector){
+        String temp;
+        temp = vector.elementAt(index1);
+        vector.set(index1, vector.elementAt(index2));
+        vector.set(index2, temp);
+    }
     public void add() throws IOException {// metodo per l'aggiunta dei contatti alla rubrica
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
@@ -186,6 +210,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
         } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
             System.out.println(e.getMessage());// visualizzo l'errore
         }
+        funzioni.sort();
     }
 
     public void remove() throws IOException {// Dichiaro il metodo remove, per rimuovere i contatti
