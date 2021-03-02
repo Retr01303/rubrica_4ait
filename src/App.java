@@ -1,8 +1,8 @@
-//TODO: controllare ogni funzione del codice e renderlo "a prova di scimmia"
-
 import java.util.*;//Importo le librerie
 import java.io.*;
 
+//TODO: check totale del codice
+//TODO: CONTROLLO ADD, REMOVE, SHOW, FIND, MOD
 public class App {
 
     public static InputStreamReader input = new InputStreamReader(System.in);// creo l'oggetto input e il buffer per
@@ -77,7 +77,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
     private String SceltaAdd = "n";// dichiaro una variabile per la scelta se si vuole aggiungere un altro contatto
                                    // o no
 
-                                   private void sort() {// dichiaro un metodo di selection sort
+    private void sort() {// dichiaro un metodo di selection sort
         for (int i = 0; i < nome.size() - 1; i++) {// selezioni il primo elemento del confronto
             for (int j = i + 1; j < nome.size(); j++) {// selezioniìo il secondo elemento da confrontare
                 if (nome.elementAt(i).compareToIgnoreCase(nome.elementAt(j)) > 0) {// confronto i 2 elementi che ho
@@ -89,9 +89,9 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
         }
     }
 
-    private void scambiaTutti(int index1, int index2) {// dichiaro il metodo per lo scmabio di due indici in tutti i
+    private void scambiaTutti(int index1, int index2) {// dichiaro il metodo per lo scambio di due indici in tutti i
                                                        // vettori
-        scambia(index1, index2, nome);// richiamo il metodo comunicando il gli infdici e il vettpre da scambiare
+        scambia(index1, index2, nome);// richiamo il metodo comunicando il gli indici e il vettore da scambiare
         scambia(index1, index2, telefono);
         scambia(index1, index2, email);
         scambia(index1, index2, gruppi);
@@ -127,7 +127,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                     }
 
                     do {
-                        checkNumPhone = false;
+                        checkNumPhone = false;// resetto la variabile
                         System.out.println("Aggiungi Numero di Telefono");// chiedo all'utenete di inserire questo
                                                                           // valore
                         try {// try/catch per la verifica del corretto inserimento del numero di telefono
@@ -225,7 +225,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
         } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
             System.out.println(e.getMessage());// visualizzo l'errore
         }
-        funzioni.sort();
+        funzioni.sort();// richiamo il metodo per l'ordinamento dalla rubrica
     }
 
     public void remove() throws IOException {// Dichiaro il metodo remove, per rimuovere i contatti
@@ -237,11 +237,14 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
             // mando a capo e poi chiedo quale contatto rimuovere tramite un indice
             try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
                  // avvenissero eventuali errori
-                nome.remove(Integer.parseInt(tastiera.readLine()));// rimuovo gli oggetti dai vettori tramite l'indice
-                                                                   // dall'utente digitato
-                telefono.remove(Integer.parseInt(tastiera.readLine()));
-                email.remove(Integer.parseInt(tastiera.readLine()));
-                gruppi.remove(Integer.parseInt(tastiera.readLine()));
+
+                int indexRemove = Integer.parseInt(tastiera.readLine());
+                nome.remove(indexRemove);// rimuovo gli oggetti dai vettori tramite l'indice
+                                         // dall'utente digitato
+                telefono.remove(indexRemove);
+                email.remove(indexRemove);
+                gruppi.remove(indexRemove);
+
             } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                 System.out.println(e.getMessage());// visualizzo l'errore
                 System.out.println("si è verificato un errore, prego riprovare");
@@ -261,6 +264,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                 System.out.print(" Email: " + email.elementAt(i));
                 System.out.println(" Gruppo: " + gruppi.elementAt(i));
             }
+
         } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
             System.out.println(e.getMessage());// visualizzo l'errore
         }
@@ -281,68 +285,76 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
 
             if (sceltaFind.charAt(0) == 'n') { // operazione di controllo, compara il contenuto della varibile ad un
                                                // char
-                System.out.println("Inserisci il nome da cercare");//chiedo all'utente il nome del contatto da cercare
-                nameReserch = tastiera.readLine();//ricevo il nome e lo assegno a una variabile
+                System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da cercare
+                nameReserch = tastiera.readLine();// ricevo il nome e lo assegno a una variabile
 
-                for (int i = 0; i < nome.size(); i++) {//scorro il vettoe
-                    if (nome.elementAt(i).compareTo(nameReserch) == 0) {//se trovo il vettore contentente il nome lo stampo
-                        System.out.println("Contatto trovato:");//stampo il vettore
+                for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
+                    if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il nome lo
+                                                                        // stampo
+                        System.out.println("Contatto trovato:");// stampo il vettore
                         System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
                         System.out.print(" Telefono: " + telefono.elementAt(i));
                         System.out.print(" Email: " + email.elementAt(i));
                         System.out.println(" Gruppo: " + gruppi.elementAt(i));
-                        checkFind = true;//indico che ho svolto la funzione tramite una variabile
-                        break;//esco dal ciclo for
+                        checkFind = true;// indico che ho svolto la funzione tramite una variabile
+                        break;// esco dal ciclo for
                     }
                 }
 
-                if (!checkFind) {//se non trovo il contatto indico l'errore
+                if (!checkFind) {// se non trovo il contatto indico l'errore
                     System.out.println("Contatto non trovato");
                 }
-                System.out.println("Ricerca eseguita");//FIXME:da tenere o eliminare?
-            } else if (sceltaFind.charAt(0) == 'g') {//se l'utente cerca inserisce la ricerca per gruppo 
-                int indexGroupResearch;//variabile di comodo
-                System.out.println("Ecco i gruppi presenti");//stampo a video i gruppi esistenti
-                for (int i = 0; i < researchGroup.size(); i++) {//scorro il vettore per far visualizzare i gruppi
-                    System.out.println(i + " - " + researchGroup.elementAt(i));//stampo l'indice del gruppo con il suo nome
+
+                System.out.println("Ricerca eseguita");// FIXME:da tenere o eliminare?
+
+            } else if (sceltaFind.charAt(0) == 'g') {// se l'utente cerca inserisce la ricerca per gruppo
+                int indexGroupResearch;// variabile di comodo
+                System.out.println("Ecco i gruppi presenti");// stampo a video i gruppi esistenti
+
+                for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i gruppi
+                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo
+                                                                               // nome
                 }
 
-                System.out.println("inserire il numero corrispondete al gruppo da cercare");//chiedo all'utente cosa il gruppo da visualizzare
-                indexGroupResearch = Integer.parseInt(tastiera.readLine());//ricevo l'indice e lo converto in int
-                funzioni.showGroup(indexGroupResearch);//richiamo la funzione, inviando l'indice a essa
+                System.out.println("inserire il numero corrispondete al gruppo da cercare");// chiedo all'utente cosa il
+                                                                                            // gruppo da visualizzare
+                indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
+                funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
             }
-        } catch (Exception e) {//se c'è un erroe lo catturo e lo visualizzo
+
+        } catch (Exception e) {// se c'è un erroe lo catturo e lo visualizzo
             System.out.print(e.getMessage());
         }
     }
 
-    public void modify() throws IOException {//dichiaro la funzione modifica
+    public void modify() throws IOException {// dichiaro la funzione modifica
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
-            funzioni.show();//richiamo la funzione show per visualizzare i contatti
-            String comodoModify = "";//variabile di comodo per la scelta
+            funzioni.show();// richiamo la funzione show per visualizzare i contatti
+            String comodoModify = "";// variabile di comodo per la scelta
             System.out.println("Inserisci il numero corrispondente al contatto che desideri modificare: ");
-            int i = Integer.parseInt(tastiera.readLine());//ricevo l'inidce del contatto da modificare
-            System.out.println("Inserisci cosa desideri modificare: ");//comunico le operazioni possibili
+            int i = Integer.parseInt(tastiera.readLine());// ricevo l'inidce del contatto da modificare
+            System.out.println("Inserisci cosa desideri modificare: ");// comunico le operazioni possibili
             System.out.println("N - Modifica nome e cognome.");
             System.out.println("T - Modifica numero di telefono.");
             System.out.println("E - Modifica E-mail.");
             System.out.println("G - Modifica gruppo.");
-            String sceltaModify = tastiera.readLine().toLowerCase();//ricevo la scelta
-            switch (sceltaModify.charAt(0)) {//verifico che funzione l'utente ha avviato
-                case 'n'://modifica il nome
-                    System.out.println("Inserisci il nome e il cognome: ");//chiedo all'utente di inserire il nuovo nome
-                    comodoModify = tastiera.readLine();//ricevo il valore
-                    nome.set(i, comodoModify);//setto il nuovo valore
-                    System.out.println("Nome modificato " + nome.elementAt(i));//comunico il nuovo valore
-                    break;//esco dal ciclo
-                case 't'://modifica del num telefono
+            String sceltaModify = tastiera.readLine().toLowerCase();// ricevo la scelta
+            switch (sceltaModify.charAt(0)) {// verifico che funzione l'utente ha avviato
+                case 'n':// modifica il nome
+                    System.out.println("Inserisci il nome e il cognome: ");// chiedo all'utente di inserire il nuovo
+                                                                           // nome
+                    comodoModify = tastiera.readLine();// ricevo il valore
+                    nome.set(i, comodoModify);// setto il nuovo valore
+                    System.out.println("Nome modificato " + nome.elementAt(i));// comunico il nuovo valore
+                    break;// esco dal ciclo
+                case 't':// modifica del num telefono
                     Long numBuffer;
                     System.out.println("Inserisci il numero di telefono: ");// chiedo all'utente di inserire il nuovo
                                                                             // Num Telefono
                     try {// try/catch per la verifica del corretto inserimento del numero di telefono
                         comodoModify = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone
-                                                     // "Buffer"
+                        // "Buffer"
                         numBuffer = Long.parseLong(comodoModify);
                         if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
                             // riempimento automatico
@@ -351,10 +363,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
 
                             try {
                                 telefono.set(i, numBuffer.toString());// aggiungo il valore al vettore
-                                System.out.println("Numero di telefono modificato " + telefono.elementAt(i));// comunico
-                                                                                                             // il nuovo
-                                                                                                             // num di
-                                                                                                             // telefono
+                                System.out.println("Numero di telefono modificato " + telefono.elementAt(i));
+                                // comunico il nuovo num di telefono
                             } catch (Exception e) {// se riescontro problemi inserisco un valore standard
                                 telefono.set(i, "0");// inserimento valore standard
                                 System.out.println(e.getMessage());// visualizzo l'errore
@@ -367,18 +377,17 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                     }
                     break;
                 case 'e':
-                    System.out.println("Inserisci l'E-mail: ");//chiedo di inserire la nuova email
-                    comodoModify = tastiera.readLine();//ricevo la nuova email
+                    System.out.println("Inserisci l'E-mail: ");// chiedo di inserire la nuova email
+                    comodoModify = tastiera.readLine();// ricevo la nuova email
                     // comunico la nuova email
                     if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
-                                       // riempimento
-                                       // automatico
+                        // riempimento automatico
                         email.set(i, "N/A");// inserimento automatico con un valore di default
                     } else {
                         boolean checkEmail = false;
                         for (int k = 0; k < comodoModify.length(); k++) { // ciclo di scorrimento
                             char a = comodoModify.charAt(k); // dichiarazione variabile con allocazione
-                                                       // del carattere corrispondente all'indice
+                            // del carattere corrispondente all'indice
                             if (a == '@') { // operazione di condizione, controlla se l'utente inserisce una
                                             // chiocciola
                                 checkEmail = true; // se si verifica la condizione, la variabile di check diventa
@@ -393,8 +402,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                     }
                     break;// esco dallo switch
                 case 'g':
-                    System.out.println("Inserisci il gruppo: ");//chiedo il nuovo gruppo
-                    comodoModify = tastiera.readLine();//ricevo il nuovo gruppo
+                    System.out.println("Inserisci il gruppo: ");// chiedo il nuovo gruppo
+                    comodoModify = tastiera.readLine();// ricevo il nuovo gruppo
                     gruppi.set(i, comodoModify);// setto il nuovo gruppo
                     System.out.println("Gruppo modificato " + gruppi.elementAt(i));// comunico il nuovo gruppo
                     break;// esco dallo switch
@@ -407,17 +416,26 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
     public void showGroup(int index) {
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
-            String groupShowReasearch = researchGroup.elementAt(index);//prendo il valore del vettore indicato dall'indice
-            for (int i = 0; i < gruppi.size(); i++) {//scorro i contatti 
-                if (gruppi.elementAt(i).compareTo(groupShowReasearch) == 0) {//se il contatto è presente nel gruppo di riceca viene visualizzato
+            String groupShowReasearch = researchGroup.elementAt(index);// prendo il valore del vettore indicato dall'indice
+            for (int i = 0; i < gruppi.size(); i++) {// scorro i contatti
+                if (gruppi.elementAt(i).compareTo(groupShowReasearch) == 0) {// se il contatto è presente nel gruppo di
+                                                                             // riceca viene visualizzato
                     System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
                     System.out.print(" Telefono: " + telefono.elementAt(i));
                     System.out.print(" Email: " + email.elementAt(i));
                     System.out.println(" Gruppo: " + gruppi.elementAt(i));
                 }
             }
-        } catch (Exception e) {//se avviene qualche errore lo catturo per evitare la chisura del programma
-            System.out.print(e.getMessage());//stampo l'errore
+        } catch (Exception e) {// se avviene qualche errore lo catturo per evitare la chisura del programma
+            System.out.print(e.getMessage());// stampo l'errore
         }
     }
 }
+/*
+
+      _
+       .__(.)< (MEOW)
+        \___)
+ <!-- ~~~~~~~~~~~~~~~~~~-->
+
+ */
