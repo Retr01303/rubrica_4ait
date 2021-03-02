@@ -1,7 +1,4 @@
 //TODO: controllare ogni funzione del codice e renderlo "a prova di scimmia"
-//TODO: eliminare eventuali script di debug
-//TODO: COMMENTARE STO CAZZO
-//TODO: provare a scrivere la funzione invia e-mail
 
 import java.util.*;//Importo le librerie
 import java.io.*;
@@ -284,78 +281,123 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
 
             if (sceltaFind.charAt(0) == 'n') { // operazione di controllo, compara il contenuto della varibile ad un
                                                // char
-                System.out.println("Inserisci il nome da cercare");
-                nameReserch = tastiera.readLine();
+                System.out.println("Inserisci il nome da cercare");//chiedo all'utente il nome del contatto da cercare
+                nameReserch = tastiera.readLine();//ricevo il nome e lo assegno a una variabile
 
-                for (int i = 0; i < nome.size(); i++) {
-                    if (nome.elementAt(i).compareTo(nameReserch) == 0) {
-                        System.out.println("Contatto trovato:");
+                for (int i = 0; i < nome.size(); i++) {//scorro il vettoe
+                    if (nome.elementAt(i).compareTo(nameReserch) == 0) {//se trovo il vettore contentente il nome lo stampo
+                        System.out.println("Contatto trovato:");//stampo il vettore
                         System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
                         System.out.print(" Telefono: " + telefono.elementAt(i));
                         System.out.print(" Email: " + email.elementAt(i));
                         System.out.println(" Gruppo: " + gruppi.elementAt(i));
-                        checkFind = true;
-                        break;
+                        checkFind = true;//indico che ho svolto la funzione tramite una variabile
+                        break;//esco dal ciclo for
                     }
                 }
 
-                if (!checkFind) {
+                if (!checkFind) {//se non trovo il contatto indico l'errore
                     System.out.println("Contatto non trovato");
                 }
-                System.out.println("Ricerca eseguita");
-            } else if (sceltaFind.charAt(0) == 'g') {
-                int indexGroupResearch;
-                System.out.println("Ecco i gruppi presenti");
-                for (int i = 0; i < researchGroup.size(); i++) {
-                    System.out.println(i + " - " + researchGroup.elementAt(i));
+                System.out.println("Ricerca eseguita");//FIXME:da tenere o eliminare?
+            } else if (sceltaFind.charAt(0) == 'g') {//se l'utente cerca inserisce la ricerca per gruppo 
+                int indexGroupResearch;//variabile di comodo
+                System.out.println("Ecco i gruppi presenti");//stampo a video i gruppi esistenti
+                for (int i = 0; i < researchGroup.size(); i++) {//scorro il vettore per far visualizzare i gruppi
+                    System.out.println(i + " - " + researchGroup.elementAt(i));//stampo l'indice del gruppo con il suo nome
                 }
-                System.out.println("inserire il numero corrispondete al gruppo da cercare");
-                indexGroupResearch = Integer.parseInt(tastiera.readLine());
-                funzioni.showGroup(indexGroupResearch);
+
+                System.out.println("inserire il numero corrispondete al gruppo da cercare");//chiedo all'utente cosa il gruppo da visualizzare
+                indexGroupResearch = Integer.parseInt(tastiera.readLine());//ricevo l'indice e lo converto in int
+                funzioni.showGroup(indexGroupResearch);//richiamo la funzione, inviando l'indice a essa
             }
-        } catch (Exception e) {
+        } catch (Exception e) {//se c'è un erroe lo catturo e lo visualizzo
             System.out.print(e.getMessage());
         }
     }
 
-    public void modify() throws IOException {
-        try {
-            funzioni.show();
-            String comodoModify = "";
+    public void modify() throws IOException {//dichiaro la funzione modifica
+        try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
+             // avvenissero eventuali errori
+            funzioni.show();//richiamo la funzione show per visualizzare i contatti
+            String comodoModify = "";//variabile di comodo per la scelta
             System.out.println("Inserisci il numero corrispondente al contatto che desideri modificare: ");
-            int i = Integer.parseInt(tastiera.readLine());
-            System.out.println("Inserisci cosa desideri modificare: ");
+            int i = Integer.parseInt(tastiera.readLine());//ricevo l'inidce del contatto da modificare
+            System.out.println("Inserisci cosa desideri modificare: ");//comunico le operazioni possibili
             System.out.println("N - Modifica nome e cognome.");
             System.out.println("T - Modifica numero di telefono.");
             System.out.println("E - Modifica E-mail.");
             System.out.println("G - Modifica gruppo.");
-            String sceltaModify = tastiera.readLine().toLowerCase();
+            String sceltaModify = tastiera.readLine().toLowerCase();//ricevo la scelta
+            switch (sceltaModify.charAt(0)) {//verifico che funzione l'utente ha avviato
+                case 'n'://modifica il nome
+                    System.out.println("Inserisci il nome e il cognome: ");//chiedo all'utente di inserire il nuovo nome
+                    comodoModify = tastiera.readLine();//ricevo il valore
+                    nome.set(i, comodoModify);//setto il nuovo valore
+                    System.out.println("Nome modificato " + nome.elementAt(i));//comunico il nuovo valore
+                    break;//esco dal ciclo
+                case 't'://modifica del num telefono
+                    Long numBuffer;
+                    System.out.println("Inserisci il numero di telefono: ");// chiedo all'utente di inserire il nuovo
+                                                                            // Num Telefono
+                    try {// try/catch per la verifica del corretto inserimento del numero di telefono
+                        comodoModify = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone
+                                                     // "Buffer"
+                        numBuffer = Long.parseLong(comodoModify);
+                        if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
+                            // riempimento automatico
+                            telefono.addElement("0");// riempimento automatico con un valore di default
+                        } else {// se il valore è corretto
 
-            switch (sceltaModify.charAt(0)) {
-                case 'n':
-                    System.out.println("Inserisci il nome e il cognome: ");
-                    comodoModify = tastiera.readLine();
-                    nome.set(i, comodoModify);
-                    System.out.println("Nome modificato " + nome.elementAt(i));
-                    break;
-                case 't':
-                    System.out.println("Inserisci il numero di telefono: ");
-                    comodoModify = tastiera.readLine();
-                    telefono.set(i, comodoModify);
-                    System.out.println("Numero di telefono modificato " + telefono.elementAt(i));
+                            try {
+                                telefono.set(i, numBuffer.toString());// aggiungo il valore al vettore
+                                System.out.println("Numero di telefono modificato " + telefono.elementAt(i));// comunico
+                                                                                                             // il nuovo
+                                                                                                             // num di
+                                                                                                             // telefono
+                            } catch (Exception e) {// se riescontro problemi inserisco un valore standard
+                                telefono.set(i, "0");// inserimento valore standard
+                                System.out.println(e.getMessage());// visualizzo l'errore
+                                break;
+                            }
+
+                        }
+                    } catch (NumberFormatException e) {// se il valore inserito non è un numero, catturo l'errore
+                        System.out.println("Inserimento errato.");// indico all'utente l'errore
+                    }
                     break;
                 case 'e':
-                    System.out.println("Inserisci l'E-mail: ");
-                    comodoModify = tastiera.readLine();
-                    email.set(i, comodoModify);
-                    System.out.println("E-mail modificata " + email.elementAt(i));
-                    break;
+                    System.out.println("Inserisci l'E-mail: ");//chiedo di inserire la nuova email
+                    comodoModify = tastiera.readLine();//ricevo la nuova email
+                    // comunico la nuova email
+                    if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
+                                       // riempimento
+                                       // automatico
+                        email.set(i, "N/A");// inserimento automatico con un valore di default
+                    } else {
+                        boolean checkEmail = false;
+                        for (int k = 0; k < comodoModify.length(); k++) { // ciclo di scorrimento
+                            char a = comodoModify.charAt(k); // dichiarazione variabile con allocazione
+                                                       // del carattere corrispondente all'indice
+                            if (a == '@') { // operazione di condizione, controlla se l'utente inserisce una
+                                            // chiocciola
+                                checkEmail = true; // se si verifica la condizione, la variabile di check diventa
+                                                   // vera
+                                email.set(i, comodoModify); // aggiunge il contenuto della variabile al vettore email
+                                System.out.println("E-mail modificata " + email.elementAt(i));
+                            }
+                        }
+                        if (checkEmail != true) { // operazione di controllo, controlla se il check è vero
+                            System.out.println("Inserimento invalido."); // stampa a video l'errore
+                        }
+                    }
+                    break;// esco dallo switch
                 case 'g':
-                    System.out.println("Inserisci il gruppo: ");
-                    comodoModify = tastiera.readLine();
-                    gruppi.set(i, comodoModify);
-                    System.out.println("Gruppo modificato " + gruppi.elementAt(i));
-                    break;
+                    System.out.println("Inserisci il gruppo: ");//chiedo il nuovo gruppo
+                    comodoModify = tastiera.readLine();//ricevo il nuovo gruppo
+                    gruppi.set(i, comodoModify);// setto il nuovo gruppo
+                    System.out.println("Gruppo modificato " + gruppi.elementAt(i));// comunico il nuovo gruppo
+                    break;// esco dallo switch
             }
         } catch (Exception e) {
             System.out.print(e.getMessage());
@@ -363,18 +405,19 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
     }
 
     public void showGroup(int index) {
-        try {
-            String groupShowReasearch = researchGroup.elementAt(index);
-            for (int i = 0; i < gruppi.size(); i++) {
-                if (gruppi.elementAt(i).compareTo(groupShowReasearch) == 0) {
+        try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
+             // avvenissero eventuali errori
+            String groupShowReasearch = researchGroup.elementAt(index);//prendo il valore del vettore indicato dall'indice
+            for (int i = 0; i < gruppi.size(); i++) {//scorro i contatti 
+                if (gruppi.elementAt(i).compareTo(groupShowReasearch) == 0) {//se il contatto è presente nel gruppo di riceca viene visualizzato
                     System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
                     System.out.print(" Telefono: " + telefono.elementAt(i));
                     System.out.print(" Email: " + email.elementAt(i));
                     System.out.println(" Gruppo: " + gruppi.elementAt(i));
                 }
             }
-        } catch (Exception e) {
-            System.out.print(e.getMessage());
+        } catch (Exception e) {//se avviene qualche errore lo catturo per evitare la chisura del programma
+            System.out.print(e.getMessage());//stampo l'errore
         }
     }
 }
