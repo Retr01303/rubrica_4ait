@@ -1,7 +1,6 @@
 //TODO: controllare ogni funzione del codice e renderlo "a prova di scimmia"
 //TODO: eliminare eventuali script di debug
 //TODO: COMMENTARE STO CAZZO
-//TODO: provare a scrivere il sort dei contatti
 //TODO: provare a scrivere la funzione invia e-mail
 //TODO: controlare l'iserimento della email scorrento una stringa
 
@@ -15,6 +14,7 @@ public class App {
     public static BufferedReader tastiera = new BufferedReader(input);
     public static rubrica funzioni = new rubrica();// dichiaro l'oggetto funzioni appartenete alla classe rubrica
     public static char scelta;// variabile per la ricezione della scelte del menu
+
     public static void main(String[] args) throws Exception {
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
@@ -80,32 +80,36 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
 
     private String SceltaAdd = "n";// dichiaro una variabile per la scelta se si vuole aggiungere un altro contatto
                                    // o no
-    
-    private void sort() {
-        for (int i = 0; i < nome.size() - 1; i++) {
-            for (int j = i + 1; j < nome.size(); j++) {
-                if (nome.elementAt(i).compareToIgnoreCase(nome.elementAt(j)) > 0) {
-                    scambiaTutti(i, j);
+
+    private void sort() {// dichiaro un metodo di selection sort
+        for (int i = 0; i < nome.size() - 1; i++) {// selezioni il primo elemento del confronto
+            for (int j = i + 1; j < nome.size(); j++) {// selezioniìo il secondo elemento da confrontare
+                if (nome.elementAt(i).compareToIgnoreCase(nome.elementAt(j)) > 0) {// confronto i 2 elementi che ho
+                                                                                   // selezionato, se è il primo è
+                                                                                   // maggiore del secondo, li scabio
+                    scambiaTutti(i, j);// invio gli indici al metodo di scambio
                 }
             }
         }
     }
-    
-    private void scambiaTutti(int index1, int index2){
-        scambia(index1, index2, nome);
+
+    private void scambiaTutti(int index1, int index2) {// dichiaro il metodo per lo scmabio di due indici in tutti i
+                                                       // vettori
+        scambia(index1, index2, nome);// richiamo il metodo comunicando il gli infdici e il vettpre da scambiare
         scambia(index1, index2, telefono);
         scambia(index1, index2, email);
         scambia(index1, index2, gruppi);
-        scambia(index1, index2, researchGroup);
     }
 
-    
-    private void scambia(int index1, int index2, Vector<String> vector){
-        String temp;
-        temp = vector.elementAt(index1);
-        vector.set(index1, vector.elementAt(index2));
-        vector.set(index2, temp);
+    private void scambia(int index1, int index2, Vector<String> vector) {// metodo di scambio effettivo
+        // riceve gli indici e il vettore da scambiare
+        String temp;// variabile buffer
+        temp = vector.elementAt(index1);// salvo in una variabile temporanea l'elemento alla posione index1
+        vector.set(index1, vector.elementAt(index2));// assegno il valore dell'elemento in index2 alla posizione di
+                                                     // index1
+        vector.set(index2, temp);// assegno il valore che era precedentemente nel valore di index1 in index2
     }
+
     public void add() throws IOException {// metodo per l'aggiunta dei contatti alla rubrica
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
