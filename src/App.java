@@ -2,7 +2,6 @@
 //TODO: eliminare eventuali script di debug
 //TODO: COMMENTARE STO CAZZO
 //TODO: provare a scrivere la funzione invia e-mail
-//TODO: controlare l'iserimento della email scorrento una stringa
 
 import java.util.*;//Importo le librerie
 import java.io.*;
@@ -81,7 +80,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
     private String SceltaAdd = "n";// dichiaro una variabile per la scelta se si vuole aggiungere un altro contatto
                                    // o no
 
-    private void sort() {// dichiaro un metodo di selection sort
+                                   private void sort() {// dichiaro un metodo di selection sort
         for (int i = 0; i < nome.size() - 1; i++) {// selezioni il primo elemento del confronto
             for (int j = i + 1; j < nome.size(); j++) {// selezioniìo il secondo elemento da confrontare
                 if (nome.elementAt(i).compareToIgnoreCase(nome.elementAt(j)) > 0) {// confronto i 2 elementi che ho
@@ -121,12 +120,12 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
             do {// inizio ciclo do While per l'inserimento dei contatti
                 try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
                      // avvenissero eventuali errori
-                    System.out.println("Aggiungi Nome");// chiedo all'utenete di inserire questo valore
+                    System.out.println("Aggiungi Nome");// chiedo all'utente di inserire questo valore
                     buffer = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone "Buffer"
                     if (buffer == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un riempimento
                                        // automatico
                         nome.addElement("N/A");// riempimento automatico
-                    } else {// nel caso l'untente inseriscce un valore
+                    } else {// nel caso l'utente inserisce un valore
                         nome.addElement(buffer);// aggiunta al vettore il valore inserito dall'utente
                     }
 
@@ -161,15 +160,30 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                     } while (checkNumPhone);// se viene inserito un valore corretto si esce da ciclo, al contrario si
                                             // ripete finche non viene inserito un valore accettabile
 
-                    System.out.println("Aggiungi E-mail");// chiedo all'utenete di inserire questo
-                                                          // valore
-                    buffer = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone "Buffer"
-
-                    if (buffer == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un riempimento
-                                       // automatico
-                        email.addElement("N/A");// inserimento automatico con un valore di default
-                    } else {
-                        email.addElement(buffer);// inserimento del valore nel vettore
+                    boolean checkEmail = false; // dichiarazione variabile di check con valore di default
+                    while (!checkEmail) {
+                        System.out.println("Aggiungi E-mail");// chiedo all'utenete di inserire questo
+                        // valore
+                        buffer = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone "Buffer"
+                        if (buffer == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
+                                           // riempimento
+                                           // automatico
+                            email.addElement("N/A");// inserimento automatico con un valore di default
+                        } else {
+                            for (int i = 0; i < buffer.length(); i++) { // ciclo di scorrimento
+                                char a = buffer.charAt(i); // dichiarazione variabile con allocazione
+                                                           // del carattere corrispondente all'indice
+                                if (a == '@') { // operazione di condizione, controlla se l'utente inserisce una
+                                                // chiocciola
+                                    checkEmail = true; // se si verifica la condizione, la variabile di check diventa
+                                                       // vera
+                                    email.addElement(buffer); // aggiunge il contenuto della variabile al vettore email
+                                }
+                            }
+                            if (checkEmail != true) { // operazione di controllo, controlla se il check è vero
+                                System.out.println("Inserimento invalido."); // stampa a video l'errore
+                            }
+                        }
                     }
 
                     System.out.println("Aggiungi gruppo d'appartenenza");// chiedo all'utente di inserire questo valore
@@ -240,12 +254,12 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
         }
     }
 
-    public void show() {// Dischiaro il metodo Show, esso consetnte di visualizzare i contatti con il
+    public void show() {// Dischiaro il metodo Show, esso consente di visualizzare i contatti con il
                         // loro indice
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
             for (int i = 0; i < nome.size(); i++) {// scorro il vettore per avanzare l'indice
-                System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con i vettori
+                System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con gli elementi dei vettori
                 System.out.print(" Telefono: " + telefono.elementAt(i));
                 System.out.print(" Email: " + email.elementAt(i));
                 System.out.println(" Gruppo: " + gruppi.elementAt(i));
@@ -255,17 +269,21 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
         }
     }
 
-    public void find() throws IOException {
-        try {
-            String sceltaFind;
-            String nameReserch = "";
-            boolean checkFind = false;
-            System.out.println("Inserisci il metodo di ricerca: ");
+    public void find() throws IOException { // dichiarazione del metodo find, consente la ricerca di un contatto tramite
+                                            // il nome o gruppi
+        try { // utilizzo try/catch per evitare il blocco del programma nel caso avenissero
+              // errori
+            String sceltaFind; // dichiarazione variabile di tipo stringa
+            String nameReserch = ""; // dichiarazione variabile di tipo stringa con valore di default allocato
+            boolean checkFind = false; // dichiarazione variabile booleana con valore di default allocato
+            System.out.println("Inserisci il metodo di ricerca: "); // chiede all'utente di scegliere il metodo di
+                                                                    // ricerca
             System.out.println("N: ricerca per nome.");
             System.out.println("G: ricerca per Gruppo");
-            sceltaFind = tastiera.readLine().toLowerCase();
+            sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
 
-            if (sceltaFind.charAt(0) == 'n') {
+            if (sceltaFind.charAt(0) == 'n') { // operazione di controllo, compara il contenuto della varibile ad un
+                                               // char
                 System.out.println("Inserisci il nome da cercare");
                 nameReserch = tastiera.readLine();
 
