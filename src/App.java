@@ -10,12 +10,11 @@ public class App {
     public static BufferedReader tastiera = new BufferedReader(input);
     public static rubrica funzioni = new rubrica();// dichiaro l'oggetto funzioni appartenete alla classe rubrica
     public static char scelta;// variabile per la ricezione della scelte del menu
-    public static String giTest;
 
     public static void main(String[] args) throws Exception {
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
-            while (scelta != 'x') {// ciclo per la gestione del menu
+            while (scelta != 'x') {// ciclo per la gestione del menù
                 System.out.println("Scegli una funzione:");// espongo le funzioni del menu
                 System.out.println("A - Aggiungi contatto");
                 System.out.println("R - Rimuovi contatto");
@@ -58,7 +57,7 @@ public class App {
     }
 }
 
-class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funzioni di essa, la scelta di
+class rubrica extends App {// dichiaro la classe rubrica contenente tutte le funzioni di essa, la scelta di
                            // implementazione alla classe App
     // è data da una scelta di sviluppo per evitare continui richiami tra classi e
     // per evitare di dichiarare gli stessi attributi piu volte
@@ -245,7 +244,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                     case 'g':
                         boolean checkIndexRemove = false;
                         do {
-                            System.out.println("inserisci il numero iniziale da rimuovere");
+                            System.out.println("Inserisci il numero iniziale da rimuovere");
                             int firstRemove = Integer.parseInt(tastiera.readLine());
                             System.out.println("Inserisci il numero finale da rimuovere");
                             int lastRemove = Integer.parseInt(tastiera.readLine());
@@ -275,9 +274,9 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
         }
     }
 
-    private void multipleRemove(int indexRemoveStart, int indexRemoveStop) {
+    private void multipleRemove(int indexRemoveStart, int indexRemoveStop) throws IOException{
         for (int i = indexRemoveStart; i >= indexRemoveStop; i++) {
-
+            funzioni.removeSingleContact(i);
         }
     }
 
@@ -346,8 +345,6 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                     System.out.println("Contatto non trovato");
                 }
 
-                System.out.println("Ricerca eseguita");// FIXME:da tenere o eliminare?
-
             } else if (sceltaFind.charAt(0) == 'g') {// se l'utente cerca inserisce la ricerca per gruppo
                 int indexGroupResearch;// variabile di comodo
                 System.out.println("Ecco i gruppi presenti");// stampo a video i gruppi esistenti
@@ -357,7 +354,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                                                                                // nome
                 }
 
-                System.out.println("inserire il numero corrispondete al gruppo da cercare");// chiedo all'utente cosa il
+                System.out.println("Inserire il numero corrispondete al gruppo da cercare");// chiedo all'utente cosa il
                                                                                             // gruppo da visualizzare
                 indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
                 funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
