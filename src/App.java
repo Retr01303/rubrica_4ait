@@ -10,6 +10,7 @@ public class App {
     public static BufferedReader tastiera = new BufferedReader(input);
     public static rubrica funzioni = new rubrica();// dichiaro l'oggetto funzioni appartenete alla classe rubrica
     public static char scelta;// variabile per la ricezione della scelte del menu
+    public static String giTest;
 
     public static void main(String[] args) throws Exception {
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
@@ -238,17 +239,56 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
             try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
                  // avvenissero eventuali errori
 
-                int indexRemove = Integer.parseInt(tastiera.readLine());
-                nome.remove(indexRemove);// rimuovo gli oggetti dai vettori tramite l'indice
-                                         // dall'utente digitato
-                telefono.remove(indexRemove);
-                email.remove(indexRemove);
-                gruppi.remove(indexRemove);
+                System.out.println("Vuoi rimuovere un gruppo di contatti o un singolo contatto");
+                String SceltaRemove = tastiera.readLine().toLowerCase();
+                switch (SceltaRemove.charAt(0)) {
+                    case 'g':
+                        boolean checkIndexRemove = false;
+                        do {
+                            System.out.println("inserisci il numero iniziale da rimuovere");
+                            int firstRemove = Integer.parseInt(tastiera.readLine());
+                            System.out.println("Inserisci il numero finale da rimuovere");
+                            int lastRemove = Integer.parseInt(tastiera.readLine());
+
+                            if (firstRemove <= nome.size() && lastRemove <= nome.size()) {
+                                funzioni.multipleRemove(firstRemove, lastRemove);
+                                checkIndexRemove = false;
+                            } else {
+                                checkIndexRemove = true;
+                            }
+                        } while (checkIndexRemove);
+
+                        break;
+                    case 's':
+                        System.out.println("Inserire l'indice del contatto da rimuovere");
+                        int singleRemove = Integer.parseInt(tastiera.readLine());
+                        funzioni.removeSingleContact(singleRemove);
+                        break;
+                }
 
             } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                 System.out.println(e.getMessage());// visualizzo l'errore
                 System.out.println("si è verificato un errore, prego riprovare");
             }
+        } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
+            System.out.println(e.getMessage());// visualizzo l'errore
+        }
+    }
+
+    private void multipleRemove(int indexRemoveStart, int indexRemoveStop) {
+        for (int i = indexRemoveStart; i >= indexRemoveStop; i++) {
+
+        }
+    }
+
+    private void removeSingleContact(int removeIndex) throws IOException {
+        try {
+            int indexRemove = Integer.parseInt(tastiera.readLine());
+            nome.remove(indexRemove);// rimuovo gli oggetti dai vettori tramite l'indice
+                                     // dall'utente digitato
+            telefono.remove(indexRemove);
+            email.remove(indexRemove);
+            gruppi.remove(indexRemove);
         } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
             System.out.println(e.getMessage());// visualizzo l'errore
         }
@@ -289,8 +329,9 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
                 nameReserch = tastiera.readLine();// ricevo il nome e lo assegno a una variabile
 
                 for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
-                    if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il nome lo
-                                                                        // stampo
+                    if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il
+                                                                               // nome lo
+                        // stampo
                         System.out.println("Contatto trovato:");// stampo il vettore
                         System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
                         System.out.print(" Telefono: " + telefono.elementAt(i));
@@ -416,7 +457,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
     public void showGroup(int index) {
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
              // avvenissero eventuali errori
-            String groupShowReasearch = researchGroup.elementAt(index);// prendo il valore del vettore indicato dall'indice
+            String groupShowReasearch = researchGroup.elementAt(index);// prendo il valore del vettore indicato
+                                                                       // dall'indice
             for (int i = 0; i < gruppi.size(); i++) {// scorro i contatti
                 if (gruppi.elementAt(i).compareTo(groupShowReasearch) == 0) {// se il contatto è presente nel gruppo di
                                                                              // riceca viene visualizzato
@@ -432,10 +474,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenete tutte le funz
     }
 }
 /*
-
-      _
-       .__(.)< (MEOW)
-        \___)
- <!-- ~~~~~~~~~~~~~~~~~~-->
-
+ * 
+ * _ .__(.)< (MEOW) \___) <!-- ~~~~~~~~~~~~~~~~~~-->
+ * 
  */
