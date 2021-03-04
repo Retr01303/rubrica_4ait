@@ -1,5 +1,4 @@
 import java.util.*;//Importo le librerie
-
 import java.io.*;
 
 //TODO: check totale del codice
@@ -10,12 +9,14 @@ public class App {
                                                                              // ricevere i dati dalla tastiera
     public static BufferedReader tastiera = new BufferedReader(input);
     public static rubrica funzioni = new rubrica();// dichiaro l'oggetto funzioni appartenete alla classe rubrica
-    public static char scelta;// variabile per la ricezione della scelte del menu
+    public static String scelta;// variabile per la ricezione della scelte del menu
 
     public static void main(String[] args) throws Exception {
-        try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
-             // avvenissero eventuali errori
-            while (scelta != 'x') {// ciclo per la gestione del menù
+        while (scelta != "x") {
+            try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
+                 // avvenissero eventuali errori
+                 // ciclo per la gestione del menù
+
                 System.out.println("Scegli una funzione:");// espongo le funzioni del menu
                 System.out.println("A - Aggiungi contatto");
                 System.out.println("R - Rimuovi contatto");
@@ -23,37 +24,42 @@ public class App {
                 System.out.println("F - Cerca un contatto");
                 System.out.println("M - Modifica un contatto");
                 System.out.println("X - Esci");
-                scelta = tastiera.readLine().toLowerCase().charAt(0);// ricevo la scelta dalla tastiera, converto la
-                                                                     // stringa in lettere minuscole, prendo un singolo
-                                                                     // char dell'indice 0 della stringa ricevuta
-                switch (scelta) {// confronto la stringa con lo switch
-                    case 'a':
-                        funzioni.add();// richiamo la funzione aggiungi
-                        break;// quando il metodo richiamato conclude le sue operazioni, esco dallo
-                              // switch/case
-                    case 'r':
-                        funzioni.remove();// richiamo la funzione rimuovi
-                        break;
-                    case 's':
-                        funzioni.show();// richiamo la funzione visualizza
-                        break;
-                    case 'f':
-                        funzioni.find();// richiamo la funzione ricerca
-                        break;
-                    case 'm':
-                        funzioni.modify();// richiamo la funzione modifica
-                        break;
-                    case 'x':// chiudo il programma
-                        break;
-                    default:// se la scelta non viene identificata stampo una stringa di errore
-                        System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa di
-                                                                                               // errore con un ritorno
-                                                                                               // a capo
+                scelta = tastiera.readLine().toLowerCase();// ricevo la scelta dalla tastiera, converto la
+                                                           // stringa in lettere minuscole, prendo un singolo
+                                                           // char dell'indice 0 della stringa ricevuta
+                if (scelta == null) {// verifico che l'inserimeto si valido
+                    switch (scelta.charAt(0)) {// confronto la stringa con lo switch
+                        case 'a':
+                            funzioni.add();// richiamo la funzione aggiungi
+                            break;// quando il metodo richiamato conclude le sue operazioni, esco dallo
+                                  // switch/case
+                        case 'r':
+                            funzioni.remove();// richiamo la funzione rimuovi
+                            break;
+                        case 's':
+                            funzioni.show();// richiamo la funzione visualizza
+                            break;
+                        case 'f':
+                            funzioni.find();// richiamo la funzione ricerca
+                            break;
+                        case 'm':
+                            funzioni.modify();// richiamo la funzione modifica
+                            break;
+                        case 'x':// chiudo il programma
+                            break;
+                        default:// se la scelta non viene identificata stampo una stringa di errore
+                            System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
+                                                                                                   // di errore con un
+                                                                                                   // ritorno a capo
+                    }
+                } else {
+                    System.out.println("Inserimento non valido." + System.lineSeparator());
                 }
+
+            } catch (Exception e) {// in caso di eventuale errore lo catturo e stampo una stringa con il messaggio
+                                   // di errore, dichiaro un oggetto di Eccezione con nome e
+                System.out.println(e.getMessage());// e.GetMessage() lo uso per ritornare a video l'errore
             }
-        } catch (Exception e) {// in caso di eventuale errore lo catturo e stampo una stringa con il messaggio
-                               // di errore, dichiaro un oggetto di Eccezione con nome e
-            System.out.println(e.getMessage());// e.GetMessage() lo uso per ritornare a video l'errore
         }
     }
 }
@@ -119,7 +125,6 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                 try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
                      // avvenissero eventuali errori
                     System.out.println("Aggiungi Nome");// chiedo all'utente di inserire questo valore
-                    System.err.println("sono rosso come un pomodoro");
                     buffer = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone "Buffer"
                     if (buffer == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un riempimento
                                        // automatico
@@ -245,7 +250,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                 System.out.println("Digitare:");
                 System.out.println("M: per la rimozione multipla dei contatti");
                 System.out.println("S: per la singola rimozione di un contatto");
-                String SceltaRemove = tastiera.readLine().toLowerCase();
+                String SceltaRemove = tastiera.readLine().toLowerCase();// ricevo
                 int firstRemove;
                 int lastRemove;
                 switch (SceltaRemove.charAt(0)) {
@@ -253,7 +258,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         boolean checkIndexRemove = false;
                         do {
 
-                           System.out.println(
+                            System.out.println(
                                     "inserire l'indice iniziale e quello finale separati da un - per la rimozione multipla ");
 
                             String[] partsRemove = tastiera.readLine().split("-");
@@ -341,7 +346,6 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
             System.out.println("L: ricerca per la prima lettera");
             sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
 
-
             // operazione di controllo, compara il contenuto della varibile ad un
             // char
             switch (sceltaFind.charAt(0)) {
@@ -389,17 +393,18 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
 
                 case 'l':
-                System.out.println("Inserisci la lettra iniziale da cercare");
-                nameReserch = tastiera.readLine();
-                for(int i = 0; i < nome.size(); i++){
-                    if(nome.elementAt(i).charAt(0) == nameReserch.charAt(0)){
-                        System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con gli elementi dei
-                                                                                 // vettori
-                        System.out.print(" Telefono: " + telefono.elementAt(i));
-                        System.out.print(" Email: " + email.elementAt(i));
-                        System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                    System.out.println("Inserisci la lettra iniziale da cercare");
+                    nameReserch = tastiera.readLine();
+                    for (int i = 0; i < nome.size(); i++) {
+                        if (nome.elementAt(i).charAt(0) == nameReserch.charAt(0)) {
+                            System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con gli elementi
+                                                                                     // dei
+                                                                                     // vettori
+                            System.out.print(" Telefono: " + telefono.elementAt(i));
+                            System.out.print(" Email: " + email.elementAt(i));
+                            System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                        }
                     }
-                }
             }
 
         } catch (Exception e) {// se c'è un erroe lo catturo e lo visualizzo
@@ -519,17 +524,19 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
     }
 
 }
-/*
-      ___           ___           ___           ___     
-     /\  \         /\  \         /\__\         /\  \    
-    |::\  \       |::\  \       /:/ _/_       |::\  \   
-    |:|:\  \      |:|:\  \     /:/ /\  \      |:|:\  \  
-  __|:|\:\  \   __|:|\:\  \   /:/ /::\  \   __|:|\:\  \ 
- /::::|_\:\__\ /::::|_\:\__\ /:/__\/\:\__\ /::::|_\:\__\
- \:\~~\  \/__/ \:\~~\  \/__/ \:\  \ /:/  / \:\~~\  \/__/
-  \:\  \        \:\  \        \:\  /:/  /   \:\  \      
-   \:\  \        \:\  \        \:\/:/  /     \:\  \     
-    \:\__\        \:\__\        \::/  /       \:\__\    
-     \/__/         \/__/         \/__/         \/__/    
 
-   */
+class ConsoleColors {
+    public final String[] color = new String[10];
+    // Reset
+    color[10] = "\033[0m"; // Text Reset
+
+    // Regular Colors
+    color[0]="\033[0;30m"; // BLACK
+    color[1]="\033[0;31m"; // RED
+    color[2]="\033[0;32m"; // GREEN
+    color[3]="\033[0;33m"; // YELLOW
+    color[4]="\033[0;34m"; // BLUE
+    color[5]="\033[0;35m"; // PURPLE
+    color[6]="\033[0;36m"; // CYAN
+    color[7]="\033[0;37m"; // WHITE
+}
