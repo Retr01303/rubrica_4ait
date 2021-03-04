@@ -1,5 +1,4 @@
 import java.util.*;//Importo le librerie
-
 import java.io.*;
 
 //TODO: check totale del codice
@@ -336,12 +335,13 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                                     // ricerca
             System.out.println("N: ricerca per nome.");
             System.out.println("G: ricerca per Gruppo");
+            System.out.println("L: ricerca per la prima lettera");
             sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
 
             // operazione di controllo, compara il contenuto della varibile ad un
             // char
             switch (sceltaFind.charAt(0)) {
-                case 'N':
+                case 'n':
                     System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da
                                                                        // cercare
                     nameReserch = tastiera.readLine();// ricevo il nome e lo assegno a una variabile
@@ -364,7 +364,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         }
 
                     }
-                case 'G':
+                case 'g':
                     // se l'utente cerca inserisce la ricerca per gruppo
                     int indexGroupResearch;// variabile di comodo
                     System.out.println("Ecco i gruppi presenti");// stampo a video i gruppi esistenti
@@ -384,9 +384,18 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                                                // int
                     funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
 
-                case 'L':
+                case 'l':
                 System.out.println("Inserisci la lettra iniziale da cercare");
                 nameReserch = tastiera.readLine();
+                for(int i = 0; i < nome.size(); i++){
+                    if(nome.elementAt(i).charAt(0) == nameReserch.charAt(0)){
+                        System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con gli elementi dei
+                                                                                 // vettori
+                        System.out.print(" Telefono: " + telefono.elementAt(i));
+                        System.out.print(" Email: " + email.elementAt(i));
+                        System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                    }
+                }
             }
 
         } catch (Exception e) {// se c'è un erroe lo catturo e lo visualizzo
