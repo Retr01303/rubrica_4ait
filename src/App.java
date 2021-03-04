@@ -531,4 +531,5 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
    \:\  \        \:\  \        \:\/:/  /     \:\  \     
     \:\__\        \:\__\        \::/  /       \:\__\    
      \/__/         \/__/         \/__/         \/__/    
+
    */
