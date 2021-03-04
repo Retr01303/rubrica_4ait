@@ -1,4 +1,5 @@
 import java.util.*;//Importo le librerie
+
 import java.io.*;
 
 //TODO: check totale del codice
@@ -251,8 +252,10 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     case 'm':
                         boolean checkIndexRemove = false;
                         do {
-                            System.out.println(
+
+                           System.out.println(
                                     "inserire l'indice iniziale e quello finale separati da un - per la rimozione multipla ");
+
                             String[] partsRemove = tastiera.readLine().split("-");
                             firstRemove = Integer.parseInt(partsRemove[0].trim());
                             lastRemove = Integer.parseInt(partsRemove[1].trim());
@@ -279,7 +282,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
 
             } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                 System.out.println(e.getMessage());// visualizzo l'errore
-                System.out.println("si è verificato un errore, prego riprovare");
+                System.out.println("Si è verificato un errore, prego riprovare");
             }
         } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
             System.out.println(e.getMessage());// visualizzo l'errore
@@ -337,6 +340,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
             System.out.println("G: ricerca per Gruppo");
             System.out.println("L: ricerca per la prima lettera");
             sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
+
 
             // operazione di controllo, compara il contenuto della varibile ad un
             // char
@@ -513,4 +517,18 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
         }
         funzioni.sort();
     }
+
 }
+/*
+      ___           ___           ___           ___     
+     /\  \         /\  \         /\__\         /\  \    
+    |::\  \       |::\  \       /:/ _/_       |::\  \   
+    |:|:\  \      |:|:\  \     /:/ /\  \      |:|:\  \  
+  __|:|\:\  \   __|:|\:\  \   /:/ /::\  \   __|:|\:\  \ 
+ /::::|_\:\__\ /::::|_\:\__\ /:/__\/\:\__\ /::::|_\:\__\
+ \:\~~\  \/__/ \:\~~\  \/__/ \:\  \ /:/  / \:\~~\  \/__/
+  \:\  \        \:\  \        \:\  /:/  /   \:\  \      
+   \:\  \        \:\  \        \:\/:/  /     \:\  \     
+    \:\__\        \:\__\        \::/  /       \:\__\    
+     \/__/         \/__/         \/__/         \/__/    
+   */
