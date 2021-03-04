@@ -252,7 +252,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     case 'm':
                         boolean checkIndexRemove = false;
                         do {
-                            System.out.println("inserire l'indice iniziale e quello finale separati da un - per la rimozione multipla ");
+                            System.out.println(
+                                    "inserire l'indice iniziale e quello finale separati da un - per la rimozione multipla ");
                             String[] partsRemove = tastiera.readLine().split("-");
                             firstRemove = Integer.parseInt(partsRemove[0].trim());
                             lastRemove = Integer.parseInt(partsRemove[1].trim());
@@ -337,42 +338,55 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
             System.out.println("G: ricerca per Gruppo");
             sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
 
-            if (sceltaFind.charAt(0) == 'n') { // operazione di controllo, compara il contenuto della varibile ad un
-                                               // char
-                System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da cercare
-                nameReserch = tastiera.readLine();// ricevo il nome e lo assegno a una variabile
+            // operazione di controllo, compara il contenuto della varibile ad un
+            // char
+            switch (sceltaFind.charAt(0)) {
+                case 'N':
+                    System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da
+                                                                       // cercare
+                    nameReserch = tastiera.readLine();// ricevo il nome e lo assegno a una variabile
 
-                for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
-                    if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il
-                                                                               // nome lo
-                        // stampo
-                        System.out.println("Contatto trovato:");// stampo il vettore
-                        System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
-                        System.out.print(" Telefono: " + telefono.elementAt(i));
-                        System.out.print(" Email: " + email.elementAt(i));
-                        System.out.println(" Gruppo: " + gruppi.elementAt(i));
-                        checkFind = true;// indico che ho svolto la funzione tramite una variabile
-                        break;// esco dal ciclo for
+                    for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
+                        if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il
+                                                                                   // nome lo
+                            // stampo
+                            System.out.println("Contatto trovato:");// stampo il vettore
+                            System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
+                            System.out.print(" Telefono: " + telefono.elementAt(i));
+                            System.out.print(" Email: " + email.elementAt(i));
+                            System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                            checkFind = true;// indico che ho svolto la funzione tramite una variabile
+                            break;// esco dal ciclo for
+                        }
+
+                        if (!checkFind) {// se non trovo il contatto indico l'errore
+                            System.out.println("Contatto non trovato");
+                        }
+
                     }
-                }
+                case 'G':
+                    // se l'utente cerca inserisce la ricerca per gruppo
+                    int indexGroupResearch;// variabile di comodo
+                    System.out.println("Ecco i gruppi presenti");// stampo a video i gruppi esistenti
 
-                if (!checkFind) {// se non trovo il contatto indico l'errore
-                    System.out.println("Contatto non trovato");
-                }
+                    for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
+                                                                    // gruppi
+                        System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con
+                                                                                   // il suo
+                                                                                   // nome
+                    }
 
-            } else if (sceltaFind.charAt(0) == 'g') {// se l'utente cerca inserisce la ricerca per gruppo
-                int indexGroupResearch;// variabile di comodo
-                System.out.println("Ecco i gruppi presenti");// stampo a video i gruppi esistenti
+                    System.out.println("Inserire il numero corrispondete al gruppo da cercare");// chiedo all'utente
+                                                                                                // cosa il
+                                                                                                // gruppo da
+                                                                                                // visualizzare
+                    indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in
+                                                                               // int
+                    funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
 
-                for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i gruppi
-                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo
-                                                                               // nome
-                }
-
-                System.out.println("Inserire il numero corrispondete al gruppo da cercare");// chiedo all'utente cosa il
-                                                                                            // gruppo da visualizzare
-                indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
-                funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
+                case 'L':
+                System.out.println("Inserisci la lettra iniziale da cercare");
+                nameReserch = tastiera.readLine();
             }
 
         } catch (Exception e) {// se c'è un erroe lo catturo e lo visualizzo
@@ -491,17 +505,3 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
         funzioni.sort();
     }
 }
-/*
-      ___           ___           ___           ___     
-     /\  \         /\  \         /\__\         /\  \    
-    |::\  \       |::\  \       /:/ _/_       |::\  \   
-    |:|:\  \      |:|:\  \     /:/ /\  \      |:|:\  \  
-  __|:|\:\  \   __|:|\:\  \   /:/ /::\  \   __|:|\:\  \ 
- /::::|_\:\__\ /::::|_\:\__\ /:/__\/\:\__\ /::::|_\:\__\
- \:\~~\  \/__/ \:\~~\  \/__/ \:\  \ /:/  / \:\~~\  \/__/
-  \:\  \        \:\  \        \:\  /:/  /   \:\  \      
-   \:\  \        \:\  \        \:\/:/  /     \:\  \     
-    \:\__\        \:\__\        \::/  /       \:\__\    
-     \/__/         \/__/         \/__/         \/__/    
-
-   */
