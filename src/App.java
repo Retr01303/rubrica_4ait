@@ -1,8 +1,5 @@
 import java.util.*;//Importo le librerie
 import java.io.*;
-
-//TODO: check totale del codice
-//TODO: CONTROLLO ADD, REMOVE, SHOW, FIND, MOD
 public class App {
 
     public static InputStreamReader input = new InputStreamReader(System.in);// creo l'oggetto input e il buffer per
@@ -523,20 +520,4 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
         funzioni.sort();
     }
 
-}
-
-class ConsoleColors {
-    public final String[] color = new String[10];
-    // Reset
-    color[10] = "\033[0m"; // Text Reset
-
-    // Regular Colors
-    color[0]="\033[0;30m"; // BLACK
-    color[1]="\033[0;31m"; // RED
-    color[2]="\033[0;32m"; // GREEN
-    color[3]="\033[0;33m"; // YELLOW
-    color[4]="\033[0;34m"; // BLUE
-    color[5]="\033[0;35m"; // PURPLE
-    color[6]="\033[0;36m"; // CYAN
-    color[7]="\033[0;37m"; // WHITE
 }
