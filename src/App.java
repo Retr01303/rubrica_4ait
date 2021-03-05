@@ -24,7 +24,7 @@ public class App {
                 scelta = tastiera.readLine().toLowerCase();// ricevo la scelta dalla tastiera, converto la
                                                            // stringa in lettere minuscole, prendo un singolo
                                                            // char dell'indice 0 della stringa ricevuta
-                if (scelta == null) {// verifico che l'inserimeto si valido
+                if (scelta.compareTo("") == 1) {// verifico che l'inserimeto si valido
                     switch (scelta.charAt(0)) {// confronto la stringa con lo switch
                         case 'a':
                             funzioni.add();// richiamo la funzione aggiungi
