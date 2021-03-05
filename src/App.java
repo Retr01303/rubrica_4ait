@@ -248,38 +248,38 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                 System.out.println("M: per la rimozione multipla dei contatti");
                 System.out.println("S: per la singola rimozione di un contatto");
                 String SceltaRemove = tastiera.readLine().toLowerCase();// ricevo
-                int firstRemove;
+                int firstRemove;//dichiaro le variabili di range
                 int lastRemove;
-                switch (SceltaRemove.charAt(0)) {
-                    case 'm':
-                        boolean checkIndexRemove = false;
+                switch (SceltaRemove.charAt(0)) {//confronto la scelta
+                    case 'm'://rimozione multipla
+                        boolean checkIndexRemove = false;//dichiaro la variabile per il check per la rimozione
                         do {
 
-                            System.out.println(
+                            System.out.println(//indico i all'utente come inserire i dati
                                     "inserire l'indice iniziale e quello finale separati da un - per la rimozione multipla ");
 
-                            String[] partsRemove = tastiera.readLine().split("-");
-                            firstRemove = Integer.parseInt(partsRemove[0].trim());
+                            String[] partsRemove = tastiera.readLine().split("-");//dichiaro un vettore di comodo per lo split dell'input
+                            firstRemove = Integer.parseInt(partsRemove[0].trim());//alloco i valori splittati e li "pulisco"
                             lastRemove = Integer.parseInt(partsRemove[1].trim());
 
-                            if (firstRemove <= nome.size() && lastRemove <= nome.size()) {
-                                checkIndexRemove = false;
+                            if (firstRemove <= nome.size() && lastRemove <= nome.size()) {//controllo se i valori non superano la dimensione massima del vettore
+                                checkIndexRemove = false;//indico che i valori sono corretti
                             } else {
-                                checkIndexRemove = true;
+                                checkIndexRemove = true;//indico che i valori sono errati e ripeto il ciclo
                             }
 
-                        } while (checkIndexRemove);
+                        } while (checkIndexRemove);//ripeto il ciclo se i valori sono errati
 
-                        if (!checkIndexRemove) {
-                            funzioni.multipleRemove(firstRemove, lastRemove);
+                        if (!checkIndexRemove) {//se i valori sono corretti eseguo il Multiple Remove
+                            funzioni.multipleRemove(firstRemove, lastRemove);//eseguo la funzione con i parametri inseriti dall'utente
                         }
 
-                        break;
-                    case 's':
-                        System.out.println("Inserire l'indice del contatto da rimuovere");
-                        int singleRemove = Integer.parseInt(tastiera.readLine());
-                        funzioni.removeSingleContact(singleRemove);
-                        break;
+                        break;//esco dal ciclo
+                    case 's'://scelta per la rimozione singola
+                        System.out.println("Inserire l'indice del contatto da rimuovere");//indico all'utente cosa deve inserire
+                        int singleRemove = Integer.parseInt(tastiera.readLine());//ricevo il valore e lo alloco nella variabile di comodo
+                        funzioni.removeSingleContact(singleRemove);//richiamo il metodo passando l'indice da rimuovere
+                        break;//esco dal ciclo
                 }
 
             } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
