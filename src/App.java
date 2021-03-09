@@ -138,8 +138,10 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         nome.addElement(buffer);// aggiunta al vettore il valore inserito dall'utente
                     }
 
-                    do {
-                        checkNumPhone = false;// resetto la variabile
+                    checkNumPhone = true;
+                    while(checkNumPhone) {
+                        checkNumPhone = false;
+                        // resetto la variabile
                         System.out.println("Aggiungi Numero di Telefono");// chiedo all'utenete di inserire questo
                                                                           // valore
                         try {// try/catch per la verifica del corretto inserimento del numero di telefono
@@ -154,10 +156,10 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                 try {
                                     numBuffer = Long.parseLong(buffer);
                                     telefono.addElement(numBuffer.toString());// aggiungo il valore al vettore
+                                    checkNumPhone = false;
                                 } catch (Exception e) {// se riescontro problemi inserisco un valore standard
-                                    telefono.addElement("0");// inserimento valore standard
-                                    System.out.println(e.getMessage());// visualizzo l'errore
-                                    break;
+                                    System.out.println(e.getMessage() + "Valore inserito errato");// visualizzo l'errore
+                                    checkNumPhone = true;
                                 }
 
                             }
@@ -167,7 +169,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                  // finche non viene inserito un valore corretto
                         }
 
-                    } while (checkNumPhone);// se viene inserito un valore corretto si esce da ciclo, al contrario si
+                    }// se viene inserito un valore corretto si esce da ciclo, al contrario si
                                             // ripete finche non viene inserito un valore accettabile
 
                     boolean checkEmail = false; // dichiarazione variabile di check con valore di default
