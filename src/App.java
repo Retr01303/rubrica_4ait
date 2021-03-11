@@ -1,4 +1,3 @@
-//FIXME: controllo SceltaAdd "si" o "no"
 //FIXME: aggiungere un default ad ogni costrutto switch/case e controllare inserimenti nel find e modify
 //FIXME: errore se inserisci un indice maggiore al numero di gruppi(righe 410-420)
 /*
