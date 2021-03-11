@@ -1,6 +1,6 @@
-
+//FIXME: controllo SceltaAdd "si" o "no"
 /*
-testo
+
 Compito di realtà Informatica 5/03/21 4A IT
 Matteo Monticciolo Gabriele Miciletto
 
@@ -15,9 +15,10 @@ public class App {
     public static BufferedReader tastiera = new BufferedReader(input);
     public static rubrica funzioni = new rubrica();// dichiaro l'oggetto funzioni appartenete alla classe rubrica
     public static String scelta;// variabile per la ricezione della scelte del menu
+    public static String x = "x";
 
     public static void main(String[] args) throws Exception {
-        while (scelta != "x") {
+        do {
             try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
                  // avvenissero eventuali errori
                  // ciclo per la gestione del menù
@@ -32,8 +33,8 @@ public class App {
                 scelta = tastiera.readLine().toLowerCase();// ricevo la scelta dalla tastiera, converto la
                                                            // stringa in lettere minuscole, prendo un singolo
                                                            // char dell'indice 0 della stringa ricevuta
-                if (scelta.compareTo("") == 1) {// verifico che l'inserimeto si valido
-                    switch (scelta.charAt(0)) {// confronto la stringa con lo switch
+                if (scelta.compareTo("") == 1) {// verifico che l'inserimeto sia valido
+                    switch (scelta.trim().charAt(0)) {// confronto la stringa con lo switch
                     case 'a':
                         funzioni.add();// richiamo la funzione aggiungi
                         break;// quando il metodo richiamato conclude le sue operazioni, esco dallo
@@ -50,7 +51,8 @@ public class App {
                     case 'm':
                         funzioni.modify();// richiamo la funzione modifica
                         break;
-                    case 'x':// chiudo il programma
+                        case 'x':
+                        System.out.println("Chiudo il programma");// richiamo la funzione modifica
                         break;
                     default:// se la scelta non viene identificata stampo una stringa di errore
                         System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
@@ -65,7 +67,7 @@ public class App {
                                    // di errore, dichiaro un oggetto di Eccezione con nome e
                 System.out.println(e.getMessage());// e.GetMessage() lo uso per ritornare a video l'errore
             }
-        }
+        }while(scelta.compareTo(x) != 0);
     }
 }
 
@@ -139,7 +141,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     }
 
                     checkNumPhone = true;
-                    while(checkNumPhone) {
+                    while (checkNumPhone) {
                         checkNumPhone = false;
                         // resetto la variabile
                         System.out.println("Aggiungi Numero di Telefono");// chiedo all'utenete di inserire questo
@@ -169,8 +171,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                  // finche non viene inserito un valore corretto
                         }
 
-                    }// se viene inserito un valore corretto si esce da ciclo, al contrario si
-                                            // ripete finche non viene inserito un valore accettabile
+                    } // se viene inserito un valore corretto si esce da ciclo, al contrario si
+                      // ripete finche non viene inserito un valore accettabile
 
                     boolean checkEmail = false; // dichiarazione variabile di check con valore di default
                     while (!checkEmail) {
@@ -366,7 +368,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
             case 'n':
                 System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da
                                                                    // cercare
-                nameReserch = tastiera.readLine();// ricevo il nome e lo assegno a una variabile
+                nameReserch = tastiera.readLine();// ricevo il nome e lo assegno ad una variabile
 
                 for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
                     if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il
@@ -380,16 +382,16 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         checkFind = true;// indico che ho svolto la funzione tramite una variabile
                         break;// esco dal ciclo for
                     }
-
-                    if (!checkFind) {// se non trovo il contatto indico l'errore
-                        System.out.println("Contatto non trovato");
-                    }
-
                 }
+                if (!checkFind) {// se non trovo il contatto indico l'errore
+                    System.out.println("Contatto non trovato");
+                    break;
+                }
+                break;
             case 'g':
                 // se l'utente cerca inserisce la ricerca per gruppo
                 int indexGroupResearch;// variabile di comodo
-                System.out.println("Ecco i gruppi presenti");// stampo a video i gruppi esistenti
+                System.out.println("Ecco i gruppi presenti:");// stampo a video i gruppi esistenti
 
                 for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
                                                                 // gruppi
@@ -398,16 +400,17 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                                                // nome
                 }
 
-                System.out.println("Inserire il numero corrispondete al gruppo da cercare");// chiedo all'utente
-                                                                                            // cosa il
-                                                                                            // gruppo da
-                                                                                            // visualizzare
+                System.out.println("Inserire il numero corrispondete al gruppo da cercare:");// chiedo all'utente
+                                                                                             // cosa il
+                                                                                             // gruppo da
+                                                                                             // visualizzare
                 indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in
                                                                            // int
                 funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
+                break;
 
             case 'l':
-                System.out.println("Inserisci la lettra iniziale da cercare");
+                System.out.println("Inserisci la lettra iniziale da cercare:");
                 nameReserch = tastiera.readLine();
                 for (int i = 0; i < nome.size(); i++) {
                     if (nome.elementAt(i).charAt(0) == nameReserch.charAt(0)) {
@@ -419,6 +422,12 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         System.out.println(" Gruppo: " + gruppi.elementAt(i));
                     }
                 }
+                break;
+
+            default:// se la scelta non viene identificata stampo una stringa di errore
+                System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
+                                                                                       // di errore con un
+                                                                                       // ritorno a capo
             }
 
         } catch (Exception e) {// se c'è un erroe lo catturo e lo visualizzo
