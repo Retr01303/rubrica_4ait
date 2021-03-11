@@ -1,7 +1,9 @@
 //FIXME: controllo SceltaAdd "si" o "no"
+//FIXME: aggiungere un default ad ogni costrutto switch/case e controllare inserimenti nel find e modify
+//FIXME: errore se inserisci un indice maggiore al numero di gruppi(righe 410-420)
 /*
 
-Compito di realtà Informatica 5/03/21 4A IT
+Compito di realtà Informatica 05/03/21 4A IT
 Matteo Monticciolo Gabriele Miciletto
 
 */
@@ -51,8 +53,8 @@ public class App {
                     case 'm':
                         funzioni.modify();// richiamo la funzione modifica
                         break;
-                        case 'x':
-                        System.out.println("Chiudo il programma");// richiamo la funzione modifica
+                    case 'x':
+                        System.out.println("Chiudo il programma");// chiudo il programma
                         break;
                     default:// se la scelta non viene identificata stampo una stringa di errore
                         System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
@@ -215,7 +217,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                             // programma, esso evita un bug nel codice seguente
                         researchGroup.addElement(buffer);// inserimento del valore nel vettore
                         firstBoot = false;// indico al programma che il primo gruppo è stato inserito
-                    } else {
+                    } 
+                    else {
                         for (int i = 0; i < researchGroup.size(); i++) {// scorro questo vettore per controllare se il
                                                                         // gruppo inserito esiste
                             if (researchGroup.elementAt(i).compareTo(buffer) == 0) {// controllo se il gruppo inserito è
@@ -233,9 +236,15 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                             groupFind = true;// resetto la variabile per evitre l'aggiunta involontaria
                         }
                     }
-                    System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole continuare
-                    SceltaAdd = tastiera.readLine().toLowerCase();// ricevo la risposta, la converto in caratteri
-                                                                  // minuscoli
+                    char var = 'n';
+                    do{
+                        System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole continuare
+                        SceltaAdd = tastiera.readLine().toLowerCase(); // ricevo la risposta, la converto in caratteri minuscoli
+                        var = SceltaAdd.charAt(0);
+                        if(var != 's' && var != 'n'){
+                            System.out.println("Inserimento invalido. Inserisci si o no:");
+                        }
+                    }while(var != 's' && var != 'n');                                      
                 } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                     System.out.println(e.getMessage());// visualizzo l'errore
                 }
@@ -395,17 +404,20 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
 
                 for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
                                                                 // gruppi
-                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con
-                                                                               // il suo
-                                                                               // nome
+                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo nome
                 }
 
-                System.out.println("Inserire il numero corrispondete al gruppo da cercare:");// chiedo all'utente
-                                                                                             // cosa il
-                                                                                             // gruppo da
-                                                                                             // visualizzare
-                indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in
-                                                                           // int
+                do{
+                    System.out.println("Inserire il numero corrispondete al gruppo da cercare:"); /* chiedo all'utente
+                                                                                              cosa il
+                                                                                              gruppo da
+                                                                                              visualizzare */
+                    indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
+                
+                    if(indexGroupResearch > gruppi.size()){
+                        System.out.println("Errore, il valore inserito supera il numero di contatti"); 
+                    }
+                }while(indexGroupResearch > gruppi.size());
                 funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
                 break;
 
@@ -420,6 +432,9 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         System.out.print(" Telefono: " + telefono.elementAt(i));
                         System.out.print(" Email: " + email.elementAt(i));
                         System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                    }
+                    else{
+                        System.out.println("Nessuna corrispondenza con la lettera inserita, riprova.");
                     }
                 }
                 break;
