@@ -1,12 +1,5 @@
-<<<<<<< HEAD
 
 /*
-=======
-//FIXME: aggiungere un default ad ogni costrutto switch/case e controllare inserimenti nel find e modify
-//FIXME: errore se inserisci un indice maggiore al numero di gruppi(righe 410-420)
-/*
-
->>>>>>> 47c745c51d0b627e907c8b960a8036bd07d07332
 Compito di realtà Informatica 05/03/21 4A IT
 Matteo Monticciolo Gabriele Miciletto
 */
@@ -220,8 +213,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                             // programma, esso evita un bug nel codice seguente
                         researchGroup.addElement(buffer);// inserimento del valore nel vettore
                         firstBoot = false;// indico al programma che il primo gruppo è stato inserito
-                    } 
-                    else {
+                    } else {
                         for (int i = 0; i < researchGroup.size(); i++) {// scorro questo vettore per controllare se il
                                                                         // gruppo inserito esiste
                             if (researchGroup.elementAt(i).compareTo(buffer) == 0) {// controllo se il gruppo inserito è
@@ -240,7 +232,6 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         }
                     }
                     char var = 'n';
-<<<<<<< HEAD
                     do {
                         System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole
                                                                                  // continuare
@@ -251,16 +242,6 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                             System.out.println("Inserimento invalido. Inserisci si o no:");
                         }
                     } while (var != 's' && var != 'n');
-=======
-                    do{
-                        System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole continuare
-                        SceltaAdd = tastiera.readLine().toLowerCase(); // ricevo la risposta, la converto in caratteri minuscoli
-                        var = SceltaAdd.charAt(0);
-                        if(var != 's' && var != 'n'){
-                            System.out.println("Inserimento invalido. Inserisci si o no:");
-                        }
-                    }while(var != 's' && var != 'n');                                      
->>>>>>> 47c745c51d0b627e907c8b960a8036bd07d07332
                 } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                     System.out.println(e.getMessage());// visualizzo l'errore
                 }
@@ -326,7 +307,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     break;// esco dal ciclo
                 default:
                     System.out.println("Inserimento non valido." + System.lineSeparator());
-                    
+
                 }
 
             } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
@@ -417,14 +398,13 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                 }
                 break;
             case 'g':
-            boolean checkRepeat = false;
+                boolean checkRepeat = false;
                 // se l'utente cerca inserisce la ricerca per gruppo
                 int indexGroupResearch;// variabile di comodo
                 System.out.println("Ecco i gruppi presenti:");// stampo a video i gruppi esistenti
 
                 for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
                                                                 // gruppi
-<<<<<<< HEAD
                     System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo
                                                                                // nome
                 }
@@ -440,27 +420,10 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     if (indexGroupResearch > researchGroup.size() - 1) {
                         System.out.println("Errore, il valore inserito supera il numero di contatti");
                         checkRepeat = false;
-                    }
-                    else{
+                    } else {
                         checkRepeat = true;
                     }
                 } while (!checkRepeat);
-=======
-                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo nome
-                }
-
-                do{
-                    System.out.println("Inserire il numero corrispondete al gruppo da cercare:"); /* chiedo all'utente
-                                                                                              cosa il
-                                                                                              gruppo da
-                                                                                              visualizzare */
-                    indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
-                
-                    if(indexGroupResearch > gruppi.size()){
-                        System.out.println("Errore, il valore inserito supera il numero di contatti"); 
-                    }
-                }while(indexGroupResearch > gruppi.size());
->>>>>>> 47c745c51d0b627e907c8b960a8036bd07d07332
                 funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
                 break;
 
@@ -476,9 +439,6 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         System.out.print(" Email: " + email.elementAt(i));
                         System.out.println(" Gruppo: " + gruppi.elementAt(i));
                     } else {
-                        System.out.println("Nessuna corrispondenza con la lettera inserita, riprova.");
-                    }
-                    else{
                         System.out.println("Nessuna corrispondenza con la lettera inserita, riprova.");
                     }
                 }
@@ -606,7 +566,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                                                        // di errore con un
                                                                                        // ritorno a capo
             }
-            
+
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
