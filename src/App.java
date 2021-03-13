@@ -1,9 +1,7 @@
-//FIXME: controllo SceltaAdd "si" o "no"
+
 /*
-
-Compito di realtà Informatica 5/03/21 4A IT
+Compito di realtà Informatica 05/03/21 4A IT
 Matteo Monticciolo Gabriele Miciletto
-
 */
 import java.util.*;//Importo le librerie
 import java.io.*;
@@ -51,8 +49,8 @@ public class App {
                     case 'm':
                         funzioni.modify();// richiamo la funzione modifica
                         break;
-                        case 'x':
-                        System.out.println("Chiudo il programma");// richiamo la funzione modifica
+                    case 'x':
+                        System.out.println("Chiudo il programma");// chiudo il programma
                         break;
                     default:// se la scelta non viene identificata stampo una stringa di errore
                         System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
@@ -67,7 +65,7 @@ public class App {
                                    // di errore, dichiaro un oggetto di Eccezione con nome e
                 System.out.println(e.getMessage());// e.GetMessage() lo uso per ritornare a video l'errore
             }
-        }while(scelta.compareTo(x) != 0);
+        } while (scelta.compareTo(x) != 0);
     }
 }
 
@@ -233,9 +231,17 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                             groupFind = true;// resetto la variabile per evitre l'aggiunta involontaria
                         }
                     }
-                    System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole continuare
-                    SceltaAdd = tastiera.readLine().toLowerCase();// ricevo la risposta, la converto in caratteri
-                                                                  // minuscoli
+                    char var = 'n';
+                    do {
+                        System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole
+                                                                                 // continuare
+                        SceltaAdd = tastiera.readLine().toLowerCase(); // ricevo la risposta, la converto in caratteri
+                                                                       // minuscoli
+                        var = SceltaAdd.charAt(0);
+                        if (var != 's' && var != 'n') {
+                            System.out.println("Inserimento invalido. Inserisci si o no:");
+                        }
+                    } while (var != 's' && var != 'n');
                 } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                     System.out.println(e.getMessage());// visualizzo l'errore
                 }
@@ -299,6 +305,9 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                                                              // variabile di comodo
                     funzioni.removeSingleContact(singleRemove);// richiamo il metodo passando l'indice da rimuovere
                     break;// esco dal ciclo
+                default:
+                    System.out.println("Inserimento non valido." + System.lineSeparator());
+                    
                 }
 
             } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
@@ -389,23 +398,33 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                 }
                 break;
             case 'g':
+            boolean checkRepeat = false;
                 // se l'utente cerca inserisce la ricerca per gruppo
                 int indexGroupResearch;// variabile di comodo
                 System.out.println("Ecco i gruppi presenti:");// stampo a video i gruppi esistenti
 
                 for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
                                                                 // gruppi
-                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con
-                                                                               // il suo
+                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo
                                                                                // nome
                 }
 
-                System.out.println("Inserire il numero corrispondete al gruppo da cercare:");// chiedo all'utente
-                                                                                             // cosa il
-                                                                                             // gruppo da
-                                                                                             // visualizzare
-                indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in
-                                                                           // int
+                do {
+                    System.out.println(
+                            "Inserire il numero corrispondete al gruppo da cercare:"); /*
+                                                                                        * chiedo all'utente cosa il
+                                                                                        * gruppo da visualizzare
+                                                                                        */
+                    indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
+
+                    if (indexGroupResearch > researchGroup.size() - 1) {
+                        System.out.println("Errore, il valore inserito supera il numero di contatti");
+                        checkRepeat = false;
+                    }
+                    else{
+                        checkRepeat = true;
+                    }
+                } while (!checkRepeat);
                 funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
                 break;
 
@@ -420,6 +439,8 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                         System.out.print(" Telefono: " + telefono.elementAt(i));
                         System.out.print(" Email: " + email.elementAt(i));
                         System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                    } else {
+                        System.out.println("Nessuna corrispondenza con la lettera inserita, riprova.");
                     }
                 }
                 break;
@@ -484,7 +505,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     // "Buffer"
                     if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
                         // riempimento automatico
-                        telefono.addElement("0");// riempimento automatico con un valore di default
+                        telefono.addElement("00000");// riempimento automatico con un valore di default
                         break;
                     } else {// se il valore è corretto
 
@@ -494,13 +515,13 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                             System.out.println("Numero di telefono modificato " + telefono.elementAt(i));
                             // comunico il nuovo num di telefono
                         } catch (Exception e) {// se riescontro problemi inserisco un valore standard
-                            telefono.set(i, "0");// inserimento valore standard
+                            telefono.set(i, "00000");// inserimento valore standard
                             System.out.println(e.getMessage());// visualizzo l'errore
                             break;
                         }
 
                     }
-                } catch (NumberFormatException e) {// se il valore inserito non è un numero, catturo l'errore
+                } catch (Exception e) {// se il valore inserito non è un numero, catturo l'errore
                     System.out.println("Inserimento errato.");// indico all'utente l'errore
                 }
                 break;
@@ -530,6 +551,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                     }
                 }
                 break;// esco dallo switch
+
             case 'g':
                 System.out.println("Inserisci il gruppo: ");// chiedo il nuovo gruppo
                 comodoModify = tastiera.readLine();// ricevo il nuovo gruppo
@@ -539,7 +561,13 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                 gruppi.set(i, comodoModify);// setto il nuovo gruppo
                 System.out.println("Gruppo modificato " + gruppi.elementAt(i));// comunico il nuovo gruppo
                 break;// esco dallo switch
+
+            default:// se la scelta non viene identificata stampo una stringa di errore
+                System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
+                                                                                       // di errore con un
+                                                                                       // ritorno a capo
             }
+            
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
