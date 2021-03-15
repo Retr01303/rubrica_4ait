@@ -158,7 +158,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                     telefono.addElement(numBuffer.toString());// aggiungo il valore al vettore
                                     checkNumPhone = false;
                                 } catch (Exception e) {// se riescontro problemi inserisco un valore standard
-                                    System.out.println(e.getMessage() + "Valore inserito errato");// visualizzo l'errore
+                                    System.out.println("Valore inserito errato");// visualizzo l'errore
                                     checkNumPhone = true;
                                 }
 
