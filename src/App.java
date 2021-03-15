@@ -1,4 +1,3 @@
-
 /*
 Compito di realtà Informatica 05/03/21 4A IT
 Matteo Monticciolo Gabriele Miciletto
@@ -73,7 +72,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                            // implementazione alla classe App
     // è data da una scelta di sviluppo per evitare continui richiami tra classi e
     // per evitare di dichiarare gli stessi attributi piu volte
-
+    boolean firstBoot = true;
     // creo i vettori per il salvataggio dei contatti, tutti i vettori contengono
     // stringhe, iniziano con uno spazio iniziale di 10 elementi con incremento di 1
     public static Vector<String> nome = new Vector<String>(10, 1);// Vettore nome, dove sono presenti Nome e Cognomi
@@ -123,7 +122,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
              // avvenissero eventuali errori
             String buffer = "";// stringa che funge da tampone per l'inserimento dei contatti
             boolean groupFind = false;// variabine booleana per il controllo [Vedere in seguito alla riga 156]
-            boolean firstBoot = true;// variabile booleana per il controllo [Vedere in seguito alla riga 163]
+            // variabile booleana per il controllo [Vedere in seguito alla riga 163]
             Long numBuffer = (long) 0;// variabile di comodo per il controllo [vedere in seguito riga 111]
             boolean checkNumPhone = false;
             do {// inizio ciclo do While per l'inserimento dei contatti
@@ -150,6 +149,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                             if (buffer == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
                                 // riempimento automatico
                                 telefono.addElement("00000");// riempimento automatico con un valore di default
+                                checkNumPhone = false;
                                 break;
                             } else {// se il valore è corretto
 
@@ -158,7 +158,7 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                                     telefono.addElement(numBuffer.toString());// aggiungo il valore al vettore
                                     checkNumPhone = false;
                                 } catch (Exception e) {// se riescontro problemi inserisco un valore standard
-                                    System.out.println(e.getMessage() + "Valore inserito errato");// visualizzo l'errore
+                                    System.out.println("Valore inserito errato");// visualizzo l'errore
                                     checkNumPhone = true;
                                 }
 
@@ -231,17 +231,17 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
                             groupFind = true;// resetto la variabile per evitre l'aggiunta involontaria
                         }
                     }
-                    char var = 'n';
+                    char var = 'n'; //creo una variabile di comodo e le assegno un valore di default 
                     do {
                         System.out.println("Vuoi aggiungere un altro contatto?");// chiedo all'untente se vuole
                                                                                  // continuare
                         SceltaAdd = tastiera.readLine().toLowerCase(); // ricevo la risposta, la converto in caratteri
                                                                        // minuscoli
-                        var = SceltaAdd.charAt(0);
-                        if (var != 's' && var != 'n') {
-                            System.out.println("Inserimento invalido. Inserisci si o no:");
+                        var = SceltaAdd.charAt(0); //alloco il primo carattere della scelta nella variabile di comodo
+                        if (var != 's' && var != 'n') { //controllo se il carattere inserito sia diverso da si o no
+                            System.out.println("Inserimento invalido. Inserisci si o no:"); //stampo a video l'errore
                         }
-                    } while (var != 's' && var != 'n');
+                    } while (var != 's' && var != 'n'); //creo un ciclo che non esce fuori finchè l'utente non inserisce il valore esatto
                 } catch (Exception e) {// se il metodo riscontra un errore lo visualizzo
                     System.out.println(e.getMessage());// visualizzo l'errore
                 }
@@ -357,102 +357,109 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
         }
     }
 
-    public void find() throws IOException { // dichiarazione del metodo find, consente la ricerca di un contatto tramite
-                                            // il nome o gruppi
-        try { // utilizzo try/catch per evitare il blocco del programma nel caso avenissero
-              // errori
-            String sceltaFind; // dichiarazione variabile di tipo stringa
+    public void find() throws IOException { // dichiarazione del metodo find, consente la ricerca di un contatto tramite il nome o gruppi
+        String sceltaFind = "";// dichiarazione variabile di tipo stringa
+        do{
             String nameReserch = ""; // dichiarazione variabile di tipo stringa con valore di default allocato
             boolean checkFind = false; // dichiarazione variabile booleana con valore di default allocato
             System.out.println("Inserisci il metodo di ricerca: "); // chiede all'utente di scegliere il metodo di
-                                                                    // ricerca
+                                                                        // ricerca
             System.out.println("N: ricerca per nome.");
             System.out.println("G: ricerca per Gruppo");
             System.out.println("L: ricerca per la prima lettera");
-            sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
+            try { // utilizzo try/catch per evitare il blocco del programma nel caso avenissero
+                    // errori
+                sceltaFind = tastiera.readLine().toLowerCase(); // riceve la scelta e lo alloca in una variabile
 
-            // operazione di controllo, compara il contenuto della varibile ad un
-            // char
-            switch (sceltaFind.charAt(0)) {
-            case 'n':
-                System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da
-                                                                   // cercare
-                nameReserch = tastiera.readLine();// ricevo il nome e lo assegno ad una variabile
+                // operazione di controllo, compara il contenuto della varibile ad un
+                // char
+                switch (sceltaFind.charAt(0)) {
+                case 'n':
+                    System.out.println("Inserisci il nome da cercare");// chiedo all'utente il nome del contatto da
+                                                                    // cercare
+                    nameReserch = tastiera.readLine();// ricevo il nome e lo assegno ad una variabile
 
-                for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
-                    if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il
-                                                                               // nome lo
-                        // stampo
-                        System.out.println("Contatto trovato:");// stampo il vettore
-                        System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
-                        System.out.print(" Telefono: " + telefono.elementAt(i));
-                        System.out.print(" Email: " + email.elementAt(i));
-                        System.out.println(" Gruppo: " + gruppi.elementAt(i));
-                        checkFind = true;// indico che ho svolto la funzione tramite una variabile
-                        break;// esco dal ciclo for
+                    for (int i = 0; i < nome.size(); i++) {// scorro il vettoe
+                        if (nome.elementAt(i).trim().compareTo(nameReserch) == 0) {// se trovo il vettore contentente il
+                                                                                // nome lo
+                            // stampo
+                            System.out.println("Contatto trovato:");// stampo il vettore
+                            System.out.print(i + "-" + "Nome: " + nome.elementAt(i));
+                            System.out.print(" Telefono: " + telefono.elementAt(i));
+                            System.out.print(" Email: " + email.elementAt(i));
+                            System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                            checkFind = true;// indico che ho svolto la funzione tramite una variabile
+                            break;// esco dal ciclo for
+                        }
                     }
-                }
-                if (!checkFind) {// se non trovo il contatto indico l'errore
-                    System.out.println("Contatto non trovato");
+                    if (!checkFind) {// se non trovo il contatto indico l'errore
+                        System.out.println("Contatto non trovato");
+                        break;
+                    }
                     break;
-                }
-                break;
-            case 'g':
-                boolean checkRepeat = false;
-                // se l'utente cerca inserisce la ricerca per gruppo
-                int indexGroupResearch;// variabile di comodo
-                System.out.println("Ecco i gruppi presenti:");// stampo a video i gruppi esistenti
+                case 'g':
+                    boolean checkRepeat = false;
+                    // se l'utente cerca inserisce la ricerca per gruppo
+                    int indexGroupResearch = 0;// creo una variabile di comodo e assegno un valore di inizializzazione
+                    System.out.println("Ecco i gruppi presenti:");// stampo a video i gruppi esistenti
 
-                for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
-                                                                // gruppi
-                    System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo
-                                                                               // nome
-                }
-
-                do {
-                    System.out.println(
-                            "Inserire il numero corrispondete al gruppo da cercare:"); /*
-                                                                                        * chiedo all'utente cosa il
-                                                                                        * gruppo da visualizzare
-                                                                                        */
-                    indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
-
-                    if (indexGroupResearch > researchGroup.size() - 1) {
-                        System.out.println("Errore, il valore inserito supera il numero di contatti");
-                        checkRepeat = false;
-                    } else {
-                        checkRepeat = true;
+                    for (int i = 0; i < researchGroup.size(); i++) {// scorro il vettore per far visualizzare i
+                                                                    // gruppi
+                        System.out.println(i + " - " + researchGroup.elementAt(i));// stampo l'indice del gruppo con il suo
+                                                                                // nome
                     }
-                } while (!checkRepeat);
-                funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
-                break;
 
-            case 'l':
-                System.out.println("Inserisci la lettra iniziale da cercare:");
-                nameReserch = tastiera.readLine();
-                for (int i = 0; i < nome.size(); i++) {
-                    if (nome.elementAt(i).charAt(0) == nameReserch.charAt(0)) {
-                        System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con gli elementi
-                                                                                 // dei
-                                                                                 // vettori
-                        System.out.print(" Telefono: " + telefono.elementAt(i));
-                        System.out.print(" Email: " + email.elementAt(i));
-                        System.out.println(" Gruppo: " + gruppi.elementAt(i));
-                    } else {
-                        System.out.println("Nessuna corrispondenza con la lettera inserita, riprova.");
+                    do {
+                        System.out.println(
+                                "Inserire il numero corrispondete al gruppo da cercare:"); /*
+                                                                                            * chiedo all'utente cosa il
+                                                                                            * gruppo da visualizzare
+                                                                                            */
+                                                                
+                        try{
+                            indexGroupResearch = Integer.parseInt(tastiera.readLine());// ricevo l'indice e lo converto in int
+                        }
+                        catch(Exception e){
+                            System.out.println("Inserimento invalido.");
+                        }
+
+                        if (indexGroupResearch > researchGroup.size() - 1) { //controllo se il valore inserito non sia maggiore del
+                            System.out.println("Errore, il valore inserito supera il numero di gruppi presenti nella rubrica");
+                            checkRepeat = false;
+                        } else {
+                            checkRepeat = true;
+                        }
+                    } while (!checkRepeat);
+                    funzioni.showGroup(indexGroupResearch);// richiamo la funzione, inviando l'indice a essa
+                    break;
+
+                case 'l':
+                    System.out.println("Inserisci la lettera iniziale da cercare:");
+                    nameReserch = tastiera.readLine();
+                    for (int i = 0; i < nome.size(); i++) {
+                        if (nome.elementAt(i).charAt(0) == nameReserch.charAt(0)) {
+                            System.out.print(i + "-" + "Nome: " + nome.elementAt(i));// stampo l'indice con gli elementi
+                                                                                    // dei
+                                                                                    // vettori
+                            System.out.print(" Telefono: " + telefono.elementAt(i));
+                            System.out.print(" Email: " + email.elementAt(i));
+                            System.out.println(" Gruppo: " + gruppi.elementAt(i));
+                        } else {
+                            System.out.println("Nessuna corrispondenza con la lettera inserita, riprova.");
+                        }
                     }
-                }
-                break;
+                    break;
 
-            default:// se la scelta non viene identificata stampo una stringa di errore
-                System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
-                                                                                       // di errore con un
-                                                                                       // ritorno a capo
+                default:// se la scelta non viene identificata stampo una stringa di errore
+                    System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
+                                                                                        // di errore con un
+                                                                                        // ritorno a capo
+                }
+
+            } catch (Exception e) {// se c'è un errore lo catturo e lo visualizzo
+                System.out.print(e.getMessage());
             }
-
-        } catch (Exception e) {// se c'è un erroe lo catturo e lo visualizzo
-            System.out.print(e.getMessage());
-        }
+        }while(sceltaFind.charAt(0) != 'n' && sceltaFind.charAt(0) != 'g' && sceltaFind.charAt(0) != 'l');
     }
 
     private void showGroup(int index) {
@@ -475,102 +482,118 @@ class rubrica extends App {// dichiaro la classe rubrica contenente tutte le fun
     }
 
     public void modify() throws IOException {// dichiaro la funzione modifica
+        int i = 0;
+        String sceltaModify = "";
+        String sceltaModify2 = "";
         try {// utilizzo un try/Catch per evitare il blocco del programma nel caso
-             // avvenissero eventuali errori
+            // avvenissero eventuali errori
             funzioni.show();// richiamo la funzione show per visualizzare i contatti
             String comodoModify = "";// variabile di comodo per la scelta
-            System.out.println("Inserisci il numero corrispondente al contatto che desideri modificare: ");
-            int i = Integer.parseInt(tastiera.readLine());// ricevo l'inidce del contatto da modificare
-            System.out.println("Inserisci cosa desideri modificare: ");// comunico le operazioni possibili
-            System.out.println("N - Modifica nome e cognome.");
-            System.out.println("T - Modifica numero di telefono.");
-            System.out.println("E - Modifica E-mail.");
-            System.out.println("G - Modifica gruppo.");
-            String sceltaModify = tastiera.readLine().toLowerCase();// ricevo la scelta
-            switch (sceltaModify.charAt(0)) {// verifico che funzione l'utente ha avviato
-            case 'n':// modifica il nome
-                System.out.println("Inserisci il nome e il cognome: ");// chiedo all'utente di inserire il nuovo
-                                                                       // nome
-                comodoModify = tastiera.readLine();// ricevo il valore
-                nome.set(i, comodoModify);// setto il nuovo valore
-                System.out.println("Nome modificato " + nome.elementAt(i));// comunico il nuovo valore
-                break;// esco dal ciclo
-            case 't':// modifica del num telefono
-                Long numBuffer;
-                System.out.println("Inserisci il numero di telefono: ");// chiedo all'utente di inserire il nuovo
-                                                                        // Num Telefono
-                try {// try/catch per la verifica del corretto inserimento del numero di telefono
-                    comodoModify = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone
-                    // "Buffer"
-                    if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
-                        // riempimento automatico
-                        telefono.addElement("00000");// riempimento automatico con un valore di default
-                        break;
-                    } else {// se il valore è corretto
-
-                        try {
-                            numBuffer = Long.parseLong(comodoModify);
-                            telefono.set(i, numBuffer.toString());// aggiungo il valore al vettore
-                            System.out.println("Numero di telefono modificato " + telefono.elementAt(i));
-                            // comunico il nuovo num di telefono
-                        } catch (Exception e) {// se riescontro problemi inserisco un valore standard
-                            telefono.set(i, "00000");// inserimento valore standard
-                            System.out.println(e.getMessage());// visualizzo l'errore
+            do{
+                System.out.println("Inserisci il numero corrispondente al contatto che desideri modificare: ");
+                i = Integer.parseInt(tastiera.readLine()); // ricevo l'indice del contatto da modificare
+                if(i > nome.size() - 1){
+                    System.out.println("Errore, il valore inserito supera il numero di contatti presenti nella rubrica");
+                }
+            }while(i > nome.size() - 1);
+            do{
+                do{
+                    System.out.println("Inserisci cosa desideri modificare: ");// comunico le operazioni possibili
+                    System.out.println("N - Modifica nome e cognome.");
+                    System.out.println("T - Modifica numero di telefono.");
+                    System.out.println("E - Modifica E-mail.");
+                    System.out.println("G - Modifica gruppo.");
+                    sceltaModify = tastiera.readLine().toLowerCase();// ricevo la scelta
+                    switch (sceltaModify.charAt(0)) {// verifico che funzione l'utente ha avviato
+                        case 'n':// modifica il nome
+                            System.out.println("Inserisci il nome e il cognome: ");// chiedo all'utente di inserire il nuovo
+                                                                                    // nome
+                            comodoModify = tastiera.readLine();// ricevo il valore
+                            nome.set(i, comodoModify);// setto il nuovo valore
+                            System.out.println("Nome modificato " + nome.elementAt(i));// comunico il nuovo valore
+                            break;// esco dal ciclo
+                        case 't':// modifica del num telefono
+                            Long numBuffer;
+                            System.out.println("Inserisci il numero di telefono: ");// chiedo all'utente di inserire il nuovo
+                                                                                        // Num Telefono
+                            try {// try/catch per la verifica del corretto inserimento del numero di telefono
+                                comodoModify = tastiera.readLine();// ricevo il valore e lo assegno alla variabile tampone
+                                    // "Buffer"
+                                if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
+                                        // riempimento automatico
+                                    telefono.addElement("00000");// riempimento automatico con un valore di default
+                                    break;
+                                } else {// se il valore è corretto
+                                    try {
+                                        numBuffer = Long.parseLong(comodoModify);
+                                        telefono.set(i, numBuffer.toString());// aggiungo il valore al vettore
+                                        System.out.println("Numero di telefono modificato " + telefono.elementAt(i));
+                                            // comunico il nuovo num di telefono
+                                    } catch (Exception e) {// se riescontro problemi inserisco un valore standard
+                                        telefono.set(i, "00000");// inserimento valore standard
+                                        System.out.println(e.getMessage());// visualizzo l'errore
+                                        break;
+                                    }
+                                }
+                            } catch (Exception e) {// se il valore inserito non è un numero, catturo l'errore
+                                System.out.println("Inserimento errato.");// indico all'utente l'errore
+                            }
                             break;
+                        case 'e':
+                            System.out.println("Inserisci l'E-mail: ");// chiedo di inserire la nuova email
+                            comodoModify = tastiera.readLine();// ricevo la nuova email
+                            // comunico la nuova email
+                            if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
+                                // riempimento automatico
+                                email.set(i, "N/A");// inserimento automatico con un valore di default
+                                break;
+                            } else {
+                                boolean checkEmail = false;
+                                for (int k = 0; k < comodoModify.length(); k++) { // ciclo di scorrimento
+                                    char a = comodoModify.charAt(k); // dichiarazione variabile con allocazione
+                                        // del carattere corrispondente all'indice
+                                    if (a == '@') { // operazione di condizione, controlla se l'utente inserisce una
+                                                        // chiocciola
+                                        checkEmail = true; // se si verifica la condizione, la variabile di check diventa
+                                                            // vera
+                                        email.set(i, comodoModify); // aggiunge il contenuto della variabile al vettore email
+                                        System.out.println("E-mail modificata " + email.elementAt(i));
+                                    }
+                                }
+                                if (checkEmail != true) { // operazione di controllo, controlla se il check è vero
+                                    System.out.println("Inserimento invalido."); // stampa a video l'errore
+                                }
+                            }
+                            break;// esco dallo switch
+
+                        case 'g':
+                            System.out.println("Inserisci il gruppo: ");// chiedo il nuovo gruppo
+                            comodoModify = tastiera.readLine();// ricevo il nuovo gruppo
+                            if (comodoModify == "") {
+                                gruppi.set(i, "N/A");
+                            }
+                            gruppi.set(i, comodoModify);// setto il nuovo gruppo
+                            System.out.println("Gruppo modificato " + gruppi.elementAt(i));// comunico il nuovo gruppo
+                            break;// esco dallo switch
+
+                        default:// se la scelta non viene identificata stampo una stringa di errore
+                            System.out.println("Inserimento invalido." + System.lineSeparator());// stampo una stringa
+                                                                                                // di errore con un
+                                                                                                // ritorno a capo
+                    }
+                    do{
+                        System.out.println("Vuoi modificare qualcos'altro?");
+                        sceltaModify2 = tastiera.readLine().toLowerCase();
+                        if(sceltaModify2.charAt(0) != 's' && sceltaModify2.charAt(0) != 'n'){
+                            System.out.println("Inserimento invalido. Riprova digitando si o no");
                         }
-
-                    }
-                } catch (Exception e) {// se il valore inserito non è un numero, catturo l'errore
-                    System.out.println("Inserimento errato.");// indico all'utente l'errore
-                }
-                break;
-            case 'e':
-                System.out.println("Inserisci l'E-mail: ");// chiedo di inserire la nuova email
-                comodoModify = tastiera.readLine();// ricevo la nuova email
-                // comunico la nuova email
-                if (comodoModify == "") {// Funzione di controllo, se l'utente non inserisce nulla avviene un
-                    // riempimento automatico
-                    email.set(i, "N/A");// inserimento automatico con un valore di default
-                    break;
-                } else {
-                    boolean checkEmail = false;
-                    for (int k = 0; k < comodoModify.length(); k++) { // ciclo di scorrimento
-                        char a = comodoModify.charAt(k); // dichiarazione variabile con allocazione
-                        // del carattere corrispondente all'indice
-                        if (a == '@') { // operazione di condizione, controlla se l'utente inserisce una
-                                        // chiocciola
-                            checkEmail = true; // se si verifica la condizione, la variabile di check diventa
-                                               // vera
-                            email.set(i, comodoModify); // aggiunge il contenuto della variabile al vettore email
-                            System.out.println("E-mail modificata " + email.elementAt(i));
-                        }
-                    }
-                    if (checkEmail != true) { // operazione di controllo, controlla se il check è vero
-                        System.out.println("Inserimento invalido."); // stampa a video l'errore
-                    }
-                }
-                break;// esco dallo switch
-
-            case 'g':
-                System.out.println("Inserisci il gruppo: ");// chiedo il nuovo gruppo
-                comodoModify = tastiera.readLine();// ricevo il nuovo gruppo
-                if (comodoModify == "") {
-                    gruppi.set(i, "N/A");
-                }
-                gruppi.set(i, comodoModify);// setto il nuovo gruppo
-                System.out.println("Gruppo modificato " + gruppi.elementAt(i));// comunico il nuovo gruppo
-                break;// esco dallo switch
-
-            default:// se la scelta non viene identificata stampo una stringa di errore
-                System.out.println("Inserimento non valido." + System.lineSeparator());// stampo una stringa
-                                                                                       // di errore con un
-                                                                                       // ritorno a capo
-            }
-
-        } catch (Exception e) {
+                    }while(sceltaModify2.charAt(0) != 's' && sceltaModify2.charAt(0) != 'n');
+                }while(sceltaModify2.charAt(0) != 'n');
+            }while(sceltaModify.charAt(0) != 'n' && sceltaModify.charAt(0) != 't' && sceltaModify.charAt(0) != 'e' && sceltaModify.charAt(0) != 'g');
+        }catch (Exception e) {
             System.out.print(e.getMessage());
         }
         funzioni.sort();
     }
-
 }
+
