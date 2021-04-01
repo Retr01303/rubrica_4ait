@@ -1,3 +1,5 @@
+package rubrica_4ait.src;
+
 /*
 Compito di realtà Informatica 05/03/21 4A IT
 Matteo Monticciolo Gabriele Miciletto
